@@ -1,0 +1,32 @@
+import { useTranslation } from "react-i18next";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+const TrendsChart = ({ data }) => {
+  const { t, i18n } = useTranslation();
+  const dir = i18n.language === 'ar';
+
+  return (
+    <AreaChart responsive data={data} width="100%" height={400}>
+      <CartesianGrid strokeDasharray="3 3" stroke="#3990ab" reversed={dir}/>
+      <XAxis dataKey="day" reversed={dir} />
+      <YAxis width="auto" orientation={dir ? "right" : "left"} tick={{ textAnchor: 'end'}} />
+      <Tooltip formatter={(value) => [value, t("expenses.spending")]} />
+      <Area
+        width="100%"
+        type="monotone"
+        dataKey="spending"
+        stroke="#5abccf"
+        fill="#5abccf"
+      />
+    </AreaChart>
+  );
+};
+
+export default TrendsChart;

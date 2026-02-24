@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { Text } from "./index";
 
-const AuthRedirect = ({text, to, linkText}) => {
+const AuthRedirect = ({ i18nKey, to }) => {
   return (
-    <p className="text-secondary text-sm mt-4">{text} have an account? <span className="text-accent"><Link to={to}>{linkText}</Link></span> </p>
-  )
-}
+    <Text
+      tagElement="p"
+      className="text-secondary mt-4 text-sm"
+      i18nKey={i18nKey}
+      components={[ <Link to={to} className="text-accent" /> ]}
+    />
+  );
+};
 
-export default AuthRedirect
+export default AuthRedirect;

@@ -1,65 +1,63 @@
 import { NavLink } from "react-router-dom";
 import {
-  FaBell,
   FaChartBar,
+  FaDollarSign,
   FaHome,
-  FaRegCreditCard,
-  FaWallet,
+  FaMoneyBillTrendUp,
   FaXmark,
-  GoGoal,
+  IoWalletOutline,
+  PiHandCoinsFill,
 } from "../../assets/icons/icons";
-import { Logo, Overlay } from "../common";
+import { Loading, Logo, Overlay, Text } from "../common";
+import { useLogoutUser } from "../../hooks";
 
 const Sidebar = ({ isOpenMenu, handleOpenMenu }) => {
+  const {mutate: logoutUser, isPending} = useLogoutUser();
   const links = [
-    { name: "Home", path: "/dashboard", icon: <FaHome size={25} /> },
-    {
-      name: "Transactions",
-      path: "/transactions",
-      icon: <FaRegCreditCard size={20} />,
-    },
-    { name: "Budget", path: "/budget", icon: <FaWallet size={20} /> },
-    { name: "Analytics", path: "/analytics", icon: <FaChartBar size={20} /> },
-    { name: "Goals", path: "/goals", icon: <GoGoal size={20} /> },
-    {
-      name: "Notifications",
-      path: "/notifications",
-      icon: <FaBell size={20} />,
-    },
+  { i18nKey: "sidebar.dashboard", path: "/dashboard", icon: <FaHome /> },
+  { i18nKey: "sidebar.transactions", path: "/transactions", icon: <PiHandCoinsFill /> },
+  { i18nKey: "sidebar.budget", path: "/budget", icon: <IoWalletOutline /> },
+  { i18nKey: "sidebar.expense", path: "/expense", icon: <FaMoneyBillTrendUp /> },
+  { i18nKey: "sidebar.income", path: "/income", icon: <FaDollarSign /> },
+  { i18nKey: "sidebar.analytics", path: "/analytics", icon: <FaChartBar /> },
   ];
+
+  if(isPending) return <Loading />
+  
   return (
     <>
       {isOpenMenu && (
-        <span className="md:hidden">
+        <span className="lg:hidden">
           <Overlay onClick={() => handleOpenMenu(false)} />
         </span>
       )}
-      <aside className={`sidebar ${isOpenMenu ? "left-0" : "-left-[400px]"}`}>
+      <aside className={`sidebar ${isOpenMenu ? "ltr:left-0 rtl:right-0" : "ltr:-left-[500px] rtl:-right-[500px]"}`}>
         <div className="relative h-full">
           <button
             type="button"
-            className="icons-scale absolute top-0 right-0 md:hidden"
+            className="icons-scale absolute top-0 text-2xl ltr:right-0 rtl:left-0 lg:hidden"
             onClick={() => handleOpenMenu(false)}
           >
-            <FaXmark size={25} />
+            <FaXmark />
           </button>
           <Logo className="m-auto w-30 pb-5" />
           <ul className="border-top space-y-3 pt-10">
             {links.map((link, index) => (
               <li key={index}>
                 <NavLink className="link" to={link.path}>
-                  <span>{link.icon}</span>
-                  <span>{link.name}</span>
+                  <span className="text-2xl">{link.icon}</span>
+                  <Text tagElement="span" i18nKey={link.i18nKey} />
                 </NavLink>
               </li>
             ))}
           </ul>
-          <button
+          <Text
+            tagElement="button"
             type="button"
-            className="link flex-center absolute bottom-8 left-0 w-full bg-red-700 text-white hover:bg-red-600"
-          >
-            Sign out
-          </button>
+            onClick={()=> logoutUser()}
+            className="link flex-center absolute bottom-0 left-0 w-full bg-red-700 text-white hover:bg-red-600"
+            i18nKey="auth.logout"
+          />
         </div>
       </aside>
     </>

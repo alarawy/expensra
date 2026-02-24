@@ -1,51 +1,78 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { AuthRedirect, FormButton, FormHeading, Input } from "../components/common/index";
-// import useLogin from "../hooks/auth/useLogin";
+import { useLoginUser } from "../hooks";
+import {
+  AuthRedirect,
+  FormButton,
+  FormHeading,
+  Input,
+  Loading,
+  Section,
+  Text,
+} from "../components/common";
 import { CiMail, CiLock } from "../assets/icons/icons";
+import toast from "react-hot-toast";
+import { handleMutationError } from "../utils";
+
 const Login = () => {
   const { register, handleSubmit } = useForm();
-  // const { login, isPending } = useLogin();
+  const { mutate: loginUser, isPending } = useLoginUser();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onLogin = (loginData) => {
     console.log(loginData);
+    loginUser(loginData, {
+      onSuccess: ()=> {
+        navigate("/dashboard")
+        toast.success(t("auth.successLogin"))
+      },
+      onError: (error) => handleMutationError(error, t)
+    })
   };
 
+  if(isPending) return <Loading />
+
   return (
-    <section className="bg-secondary h-dvh content-center">
+    <Section className="bg-secondary h-dvh content-center">
       <div className="form">
-        <FormHeading text="Welcome back"/>
-        <form className="w-full border-top pt-5" onSubmit={handleSubmit(onLogin)}>
+        <FormHeading text="auth.loginHeading" />
+        <form
+          className="border-top w-full pt-5"
+          onSubmit={handleSubmit(onLogin)}
+        >
           <Input
-            inputName="email"
+            id="email"
             type="email"
-            labelName="Email address"
+            i18nKey="auth.email"
             register={register}
           >
-            <CiMail size={20} />
-          </Input>
-          <Input
-            inputName="password"
-            type="password"
-            labelName="Password"
-            register={register}
-          >
-            <CiLock size={20} />
+            <CiMail />
           </Input>
 
-          <div className="flex-between text-sm px-2 pt-2">
-            <label htmlFor="remember" className="text-secondary flex-start gap-1.5">
-              <input type="checkbox" name="remember" id="remember" />
-              Remember me
-            </label>
-            <a href="#" className="text-accent font-semibold">
-              Forgot password?
-            </a>
+          <Input
+            id="password"
+            type="password"
+            i18nKey="auth.password"
+            register={register}
+          >
+            <CiLock />
+          </Input>
+          
+          <div className="text-accent flex-end px-2 pt-2 text-sm font-semibold">
+            <Text
+              tagElement={Link}
+              to="/forget-password"
+              i18nKey="auth.forgotPassword"
+              className="hover:underline"
+            />
           </div>
-          <FormButton buttonText="Log in" />
+          <FormButton i18nKey="auth.login" />
         </form>
-        <AuthRedirect text="Don't" to="/signup" linkText="Sign up" />
+        <AuthRedirect i18nKey="auth.noAccount" to="/signup" />
       </div>
-    </section>
+    </Section>
   );
 };
 

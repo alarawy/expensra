@@ -1,5 +1,12 @@
-export { FaMoon, FaSun, FaHome, FaRegCreditCard, FaChartBar, FaBell,  } from "react-icons/fa";
-export { FaXmark, FaWallet, FaBarsStaggered } from "react-icons/fa6";
-export { CiUser, CiLock, CiMail } from "react-icons/ci";
+export { FaMoon, FaSun, FaHome, FaRegCreditCard, FaDollarSign, FaChartBar, FaBell, FaBitcoin, FaAngleDown, FaChevronDown, FaSearch } from "react-icons/fa";
+export { FaXmark, FaWallet, FaBarsStaggered, FaMoneyBillTrendUp, FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
+export { CiUser, CiLock, CiMail, CiBitcoin } from "react-icons/ci";
 export { GoGoal } from "react-icons/go";
 export { VscSignOut } from "react-icons/vsc";
+export { GiWallet, GiMoneyStack } from "react-icons/gi";
+export { MdAttachMoney,MdEdit, MdDelete } from "react-icons/md";
+export { PiHandCoinsFill } from "react-icons/pi";
+export { IoWalletOutline, IoArrowRedoSharp, IoCartOutline } from "react-icons/io5";
+export { RiFundsBoxLine } from "react-icons/ri";
+export { TbCategoryPlus } from "react-icons/tb";
+

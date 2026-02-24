@@ -1,28 +1,50 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import useSignUp from "../hooks/auth/useSignUp";
+import { useTranslation } from "react-i18next";
+import { useSignupUser } from "../hooks";
 import {
   AuthRedirect,
   FormButton,
   FormHeading,
   Input,
+  Loading,
+  Section,
 } from "../components/common/index";
 import { CiUser, CiMail, CiLock } from "../assets/icons/icons";
+import toast from "react-hot-toast";
+import { handleMutationError } from "../utils";
 
 const Signup = () => {
-  // const {signUp, isPending} = useSignUp()
-  const { register, handleSubmit, getValues, formState, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const { mutate: signUer, isPending } = useSignupUser();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onSignUp = (data) => {
-    // signUp(data, {onSettled: rest})
     console.log(data);
-    reset()
+    signUer(data, {
+      onSuccess: () => {
+        navigate("/dashboard");
+        toast.success(t("auth.successRegister"));
+      },
+      onError: (error) => handleMutationError(error, t),
+    });
+    reset();
   };
 
+  if (isPending) return <Loading />;
+
   return (
-    <section className="bg-secondary h-dvh content-center">
+    <Section className="bg-secondary h-dvh content-center">
       <div className="form">
-        <FormHeading text="Welcome" />
+        <FormHeading text="auth.signupHeading" />
         <form
           className="border-top w-full pt-5"
           onSubmit={handleSubmit(onSignUp)}
@@ -30,90 +52,80 @@ const Signup = () => {
           <div className="flex-between">
             <span className="w-[48%]">
               <Input
-                labelName="First name"
-                inputName="firstName"
+                i18nKey="auth.firstName"
+                id="firstName"
                 register={register}
                 error={errors?.firstName}
               >
-                <span>
-                  <CiUser size={20} />
-                </span>
+                <CiUser />
               </Input>
             </span>
             <span className="w-[48%]">
               <Input
-                labelName="Last name"
-                inputName="lastName"
+                i18nKey="auth.lastName"
+                id="lastName"
                 register={register}
                 error={errors?.lastName}
               >
-                <span>
-                  <CiUser size={20} />
-                </span>
+                <CiUser />
               </Input>
             </span>
           </div>
 
           <Input
-            labelName="Email"
-            inputName="email"
+            i18nKey="auth.email"
+            id="email"
             type="email"
             register={register}
-            rule={{
-              required: 'This field is required',
+            rules={{
+              required: "auth.requiredField",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Please enter a valid email address.",
+                message: "auth.invalidEmail",
               },
             }}
             error={errors?.email}
           >
-            <span>
-              <CiMail size={20} />
-            </span>
+            <CiMail />
           </Input>
           <Input
-            labelName="Password"
-            inputName="password"
+            i18nKey="auth.password"
+            id="password"
             type="password"
             register={register}
-            rule={{
-              required: 'This field is required',
+            rules={{
+              required: "auth.requiredField",
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters",
+                message: "auth.invalidPassword",
               },
             }}
             error={errors?.password}
           >
-            <span>
-              <CiLock size={20} />
-            </span>
+            <CiLock />
           </Input>
 
           <Input
-            labelName="Confirm password"
-            inputName="confirmPassword"
+            i18nKey="auth.confirmPassword"
+            id="confirmPassword"
             type="password"
             register={register}
-            rule={{
-              required: 'This field is required',
+            rules={{
+              required: "auth.requiredField",
               validate: (value) =>
                 value === getValues().password ||
-                "Please make sure both passwords match.",
+                "auth.invalidPasswordConfirmation",
             }}
             error={errors?.confirmPassword}
           >
-            <span>
-              <CiLock size={20} />
-            </span>
+            <CiLock />
           </Input>
 
-          <FormButton buttonText="Sign up" />
+          <FormButton i18nKey="auth.register" />
         </form>
-        <AuthRedirect text="Already" to="/login" linkText="Log in" />
+        <AuthRedirect i18nKey="auth.haveAccount" to="/login" />
       </div>
-    </section>
+    </Section>
   );
 };
 

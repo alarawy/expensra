@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useOutsideClick } from "../../hooks";
+import { useLogoutUser, useOutsideClick } from "../../hooks";
 import { CiUser, VscSignOut } from "../../assets/icons/icons";
 import AvatarImage from "../../assets/images/avatar.png";
+import { Text } from "./index";
 
 export default function UserProfile() {
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
+  const { mutate: logoutUser} = useLogoutUser();
+  
+  const user = {
+    firstName: 'Ahmed',
+    lastName: 'Reda',
+    email: "ahmed@gmail.com"
+  }
 
   return (
     <div ref={ref} className="relative">
@@ -21,22 +29,20 @@ export default function UserProfile() {
 
       {/* Dropdown menu */}
       {open && (
-        <div className="border-default border-default bg-primary absolute right-0 z-10 mt-5 w-50 rounded-md shadow-2xl">
-          <div className="border-bottom px-4 py-3 text-sm">
-            <div className="font-medium">Ahmed Reda</div>
-            <div className="text-muted truncate">ahmed@gmail.com</div>
+        <div className="border-default border-default bg-primary absolute rtl:left-0 ltr:right-0 z-10 mt-5 w-50 rounded-md shadow-2xl">
+          <div className="border-bottom px-4 py-3 text-sm text-left">
+            <Text tagElement="h6" className="font-medium">{`${user.firstName} ${user.lastName}`}</Text>
+            <Text tagElement="span" className="text-muted truncate">{user.email}</Text>
           </div>
 
           <ul className="space-y-3 p-2 text-sm font-medium">
             <li className="profile-list">
               <CiUser size={20} />
-              <Link to="/profile">Your profile</Link>
+              <Text tagElement={Link} to="/profile" i18nKey="profile.title" />
             </li>
             <li className="profile-list text-red-500">
               <VscSignOut size={20} />
-              <button type="button" className="cursor-pointer">
-                Sign out
-              </button>
+              <Text tagElement="button" type="button" onClick={()=> logoutUser()} className="cursor-pointer" i18nKey="auth.logout" />
             </li>
           </ul>
         </div>

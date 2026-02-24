@@ -1,9 +1,23 @@
+import { Section } from "../components/common";
+import {
+  SummaryCards,
+  Heading,
+  SpendingTrendsChart,
+  SpendingByCategoryChart,
+  RecentTransactions,
+} from "../components/dashboard";
 
 const Dashboard = () => {
   return (
-    <section className="p-10">
-      <h1 className="text-2xl">Dashboard</h1>
-    </section>
+    <Section>
+      <Heading />
+      <SummaryCards />
+      <div className="flex-center border-bottom m-0 mt-10 flex-col gap-8 pb-5 md:flex-row">
+        <SpendingTrendsChart />
+        <SpendingByCategoryChart />
+      </div>
+      <RecentTransactions />
+    </Section>
   );
 };
 

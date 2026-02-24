@@ -1,9 +1,10 @@
+import { Section } from "../components/common"
 
 const Budget = () => {
   return (
-    <section className="p-10">
+    <Section>
       <h1 className="text-2xl">Budget</h1>
-    </section>
+    </Section>
   )
 }
 

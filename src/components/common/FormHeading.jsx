@@ -1,12 +1,10 @@
-import { Logo } from "./index";
+import { Logo, Text } from "./index";
 
 const FormHeading = ({text}) => {
   return (
-    <div className="relative text-center w-full mb-5">
-      <Logo className='w-30 m-auto' />
-      <h2 className="text-primary text-xl font-bold md:text-2xl/9 absolute bottom-0 w-full ">
-        {text} to Expensra!
-      </h2>
+    <div className="text-center w-full mb-5">
+      <Logo className='w-25 md:w-30 m-auto' />
+      <Text className="text-primary text-lg font-bold md:text-2xl/9" i18nKey={text} />
     </div>
   );
 };

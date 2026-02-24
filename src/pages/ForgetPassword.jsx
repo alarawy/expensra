@@ -1,8 +1,11 @@
+import { Section } from "../components/common";
 
 const ForgetPassword = () => {
   return (
-    <div>ForgetPassword</div>
-  )
-}
+    <Section className="bg-secondary text-primary h-dvh content-center">
+      ForgetPassword
+    </Section>
+  );
+};
 
-export default ForgetPassword
+export default ForgetPassword;

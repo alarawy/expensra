@@ -1,8 +1,14 @@
+import { Text } from "./index";
 
-const FormButton = ({buttonText}) => {
+const FormButton = ({ i18nKey }) => {
   return (
-    <button type="submit" className="py-2 px-3 mt-10 rounded-md bg-accent w-full cursor-pointer hover:bg-accent">{buttonText}</button>
-  )
-}
+    <Text
+      tagElement="button"
+      type="submit"
+      i18nKey={i18nKey}
+      className="bg-accent mt-10 w-full cursor-pointer rounded-md px-3 py-2"
+    />
+  );
+};
 
-export default FormButton
+export default FormButton;

@@ -1,9 +1,10 @@
+import { Section } from "../components/common"
 
 const Profile = () => {
   return (
-    <section className="p-10">
+    <Section>
       <h1 className="text-2xl">Profile</h1>
-    </section>
+    </Section>
   )
 }
 
