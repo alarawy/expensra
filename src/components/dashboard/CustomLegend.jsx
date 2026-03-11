@@ -1,4 +1,3 @@
-import { Text } from "../common";
 
 const CustomLegend = ({ payload }) => {
   const total = payload.reduce(

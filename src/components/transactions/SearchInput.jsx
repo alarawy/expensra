@@ -3,7 +3,7 @@ import { FaSearch  } from "../../assets/icons/icons"
 
 const SearchInput = () => {
   return (
-    <Input type="search" placeholderKey="transactions.searchPlaceholder" className="flex-row-reverse bg-primary m-0 " >
+    <Input type="search" placeholderKey="transactions.searchPlaceholder" >
         <FaSearch className="text-sm"/>
     </Input>
   )

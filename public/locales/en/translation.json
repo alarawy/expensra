@@ -11,6 +11,7 @@
     "spendingTrends": "Spending Trends",
     "activityLast30Days": "Activity over the last 30 days",
     "spendingByCategory": "Spending by Category",
+    "expensesByCategory": "Expenses by Category",
     "recentTransactions": "Recent Transactions",
     "quickActions": "Quick Actions",
     "total": "Total"
@@ -30,13 +31,19 @@
   "auth": {
     "login": "Log In",
     "logout": "Log out",
+    "confirmLogout": "Are you sure you want to logout ?",
     "register": "Sign Up",
     "forgotPassword": "Forgot Password?",
+    "forgotPasswordDescription": "Enter your email and we'll send you a link to reset your password",
+    "forgotPasswordMessage": "If an account with this email exists, a password reset link will be sent",
     "rememberMe": "Remember Me",
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email address",
+    "emailPlaceholder": "Enter your email address",
     "password": "Password",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter your new password",
     "confirmPassword": "Confirm Password",
     "requiredField": "This field is required",
     "invalidEmail": "Please enter a valid email address",
@@ -54,7 +61,16 @@
     "loginHeading": "Welcome to Expensra!",
     "signupHeading": "Welcome back to Expensra!",
     "noAccount": "Don't have an account? <0>Sign Up</0>",
-    "haveAccount": "Already have an account? <0>Log In</0>"
+    "haveAccount": "Already have an account? <0>Log In</0>",
+    "sendResetCode": "Send reset code",
+    "resetPassword": "Reset Password",
+    "resetDescription": "Create a new password for your account",
+    "backToLogin": "Back to login",
+    "otpTitle": "Enter verification code",
+    "otpDescription": "We sent a 6-digit code to your email",
+    "otpPlaceholder": "Enter code",
+    "otpError": "Invalid or expired code",
+    "resendCodeTimer": "Resend code in {{secondes}}s"
   },
   "profile": {
     "title": "Your Profile",
@@ -77,7 +93,9 @@
     "addTransaction": "Add Transaction",
     "editTransaction": "Edit Transaction",
     "deleteTransaction": "Delete Transaction",
+    "confirmDeleteTransaction": "Are you sure you want to delete this transaction ?",
     "transactionDetails": "Transaction Details",
+    "startByAddingTransaction": "No transactions yet. Start by adding your first transaction",
     "allTypes": "All types",
     "income": "Income",
     "incomePlaceholder": "Source (e.g Salary, Freelance)",
@@ -92,6 +110,8 @@
     "source": "Source",
     "destination": "Destination",
     "type": "Type",
+    "limit": "Limit",
+    "spent": "Spent",
     "status": "Status",
     "pending": "Pending",
     "completed": "Completed",
@@ -146,7 +166,23 @@
     "overBudget": "Over Budget",
     "underBudget": "Under Budget",
     "budgetAlert": "Budget Alert",
-    "alertThreshold": "Alert at {{percentage}}%"
+    "alertThreshold": "Alert at {{percentage}}%",
+    "budgetPlanningTitle": "Budget Planning",
+    "leftoverLabel": "Leftover money from month:",
+    "leftoverQuestion": "How would you like to handle it?",
+    "rolloverText": "Add the leftover to next month’s budget.",
+    "rolloverButton": "Roll Over Money",
+    "savingsText": "Put the leftover money into your savings goal.",
+    "savingsButton": "Add to savings",
+    "savingProgressTitle": "Saving Progress",
+    "goal": "Goal",
+    "addMoreMoney": "+Add More Money",
+    "currentBudgetsTitle": "Current Budgets",
+    "addCategoryBudget": "+ Add Category Budget",
+    "tableCategory": "Category",
+    "tableLimit": "Limit",
+    "tableSpent": "Spent",
+    "tableStatus": "Status"
   },
   "categories": {
     "title": "Categories",
@@ -173,6 +209,9 @@
     "business": "Business",
     "investments": "Investments",
     "gift": "Gift",
+    "grocery": "Grocery",
+    "netflix": "Netflix",
+    "fuel": "Fuel",
     "other": "Other"
   },
   "dates": {
@@ -201,6 +240,20 @@
     "futureDateError": "Cannot select future date",
     "pastDateError": "Cannot select past date",
     "rangeTooLong": "Date range cannot exceed {{days}} days"
+  },
+  "months": {
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December"
   },
   "ranges": {
     "day": "Day",
@@ -288,5 +341,14 @@
     "VALIDATION_ERROR": "Please check your input and try again",
     "INSUFFICIENT_FUNDS": "Insufficient funds",
     "CATEGORY_EXISTS": "Category already exists"
+  },
+  "currencies": {
+    "egp": "EGP",
+    "usd": "USD",
+    "eur": "EUR",
+    "sar": "SAR",
+    "aed": "AED",
+    "gbp": "GBP",
+    "jpy": "JPY"
   }
 }

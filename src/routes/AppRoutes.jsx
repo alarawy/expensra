@@ -3,8 +3,7 @@ import {
   Analytics,
   Budget,
   Dashboard,
-  ForgetPassword,
-  Categories,
+  ForgotPassword,
   Login,
   Notifications,
   PageNotFound,
@@ -13,6 +12,7 @@ import {
   Transactions,
   Expense,
   Income,
+  ResetPassword,
 } from "../pages";
 import { AppLayout } from "../components/layout";
 import ProtectApp from "./ProtectApp";
@@ -22,7 +22,8 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/forget-password" element={<ForgetPassword />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route
         element={
           <ProtectApp>
@@ -36,7 +37,6 @@ const AppRoutes = () => {
         <Route path="/budget" element={<Budget />} />
         <Route path="/expense" element={<Expense />} />
         <Route path="/income" element={<Income />} />
-        <Route path="/categories" element={<Categories />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile" element={<Profile />} />

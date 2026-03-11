@@ -12,7 +12,7 @@ const Income = () => {
       <Text
         tagElement="h1"
         i18nKey="sidebar.income"
-        className="text-accent text-4xl font-bold"
+        className="text-accent mb-5 md:mb-10 text-2xl md:text-4xl font-bold"
       />
       <TransactionsForm variant="income" />
       <TransactionsTable data={tableData} variant="income" />

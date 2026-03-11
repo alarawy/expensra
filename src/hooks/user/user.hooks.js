@@ -3,6 +3,7 @@ import {
     getUserProfile,
     updateUserProfile,
     changeUserPassword,
+    sendResetLink,
 } from "../../services/user.service.js";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -18,6 +19,12 @@ export const useGetUserProfile = () => {
         queryKey: USER_QUERY_KEYS.profile,
         queryFn: getUserProfile,
         staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+};
+
+export const useForgotPassword = () => {
+    return useMutation({
+        mutationFn: sendResetLink,
     });
 };
 

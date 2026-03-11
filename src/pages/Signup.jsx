@@ -4,10 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useSignupUser } from "../hooks";
 import {
   AuthRedirect,
+  ConfirmPasswordInput,
+  EmailInput,
   FormButton,
   FormHeading,
   Input,
   Loading,
+  PasswordInput,
   Section,
 } from "../components/common/index";
 import { CiUser, CiMail, CiLock } from "../assets/icons/icons";
@@ -43,88 +46,45 @@ const Signup = () => {
 
   return (
     <Section className="bg-secondary h-dvh content-center">
-      <div className="form">
+      <form
+        className="form"
+        onSubmit={handleSubmit(onSignUp)}
+      >
         <FormHeading text="auth.signupHeading" />
-        <form
-          className="border-top w-full pt-5"
-          onSubmit={handleSubmit(onSignUp)}
-        >
-          <div className="flex-between">
-            <span className="w-[48%]">
-              <Input
-                i18nKey="auth.firstName"
-                id="firstName"
-                register={register}
-                error={errors?.firstName}
-              >
-                <CiUser />
-              </Input>
-            </span>
-            <span className="w-[48%]">
-              <Input
-                i18nKey="auth.lastName"
-                id="lastName"
-                register={register}
-                error={errors?.lastName}
-              >
-                <CiUser />
-              </Input>
-            </span>
-          </div>
+        <div className="flex-between">
+          <span className="w-[48%]">
+            <Input
+              i18nKey="auth.firstName"
+              id="firstName"
+              register={register}
+              error={errors?.firstName}
+            >
+              <CiUser />
+            </Input>
+          </span>
+          <span className="w-[48%]">
+            <Input
+              i18nKey="auth.lastName"
+              id="lastName"
+              register={register}
+              error={errors?.lastName}
+            >
+              <CiUser />
+            </Input>
+          </span>
+        </div>
 
-          <Input
-            i18nKey="auth.email"
-            id="email"
-            type="email"
-            register={register}
-            rules={{
-              required: "auth.requiredField",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "auth.invalidEmail",
-              },
-            }}
-            error={errors?.email}
-          >
-            <CiMail />
-          </Input>
-          <Input
-            i18nKey="auth.password"
-            id="password"
-            type="password"
-            register={register}
-            rules={{
-              required: "auth.requiredField",
-              minLength: {
-                value: 8,
-                message: "auth.invalidPassword",
-              },
-            }}
-            error={errors?.password}
-          >
-            <CiLock />
-          </Input>
+        <EmailInput register={register} error={errors?.email} />
+        <PasswordInput register={register} error={errors?.password} />
+        <ConfirmPasswordInput
+          register={register}
+          error={errors?.confirmPassword}
+          getValues={getValues}
+        />
 
-          <Input
-            i18nKey="auth.confirmPassword"
-            id="confirmPassword"
-            type="password"
-            register={register}
-            rules={{
-              required: "auth.requiredField",
-              validate: (value) =>
-                value === getValues().password ||
-                "auth.invalidPasswordConfirmation",
-            }}
-            error={errors?.confirmPassword}
-          >
-            <CiLock />
-          </Input>
-
-          <FormButton i18nKey="auth.register" />
-        </form>
+        <FormButton i18nKey="auth.register" isPending={isPending} className="mt-10" />
         <AuthRedirect i18nKey="auth.haveAccount" to="/login" />
-      </div>
+      </form>
     </Section>
   );
 };

@@ -1,9 +1,8 @@
-import { Button, Text } from "../common";
+import { Text } from "../common";
 
 const Heading = () => {
   return (
-    <div className="items-center justify-between space-y-3 m-0 md:flex border-bottom pb-2">
-      <div>
+    <div className="space-y-3 m-0 border-bottom pb-2">
         <Text
           tagElement="h1"
           className="text-primary text-lg font-bold md:text-2xl"
@@ -15,9 +14,6 @@ const Heading = () => {
           className="text-accent text-sm"
           i18nKey="expenses.monthlyBreakdown"
         />
-      </div>
-
-      {/* <Button i18nKey="addExpense" className="flex ltr:ml-auto rtl:mr-auto" /> */}
     </div>
   );
 };

@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import { useLoginUser } from "../hooks";
 import {
   AuthRedirect,
+  EmailInput,
   FormButton,
   FormHeading,
   Input,
   Loading,
+  PasswordInput,
   Section,
   Text,
 } from "../components/common";
@@ -16,7 +18,11 @@ import toast from "react-hot-toast";
 import { handleMutationError } from "../utils";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { mutate: loginUser, isPending } = useLoginUser();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -24,53 +30,38 @@ const Login = () => {
   const onLogin = (loginData) => {
     console.log(loginData);
     loginUser(loginData, {
-      onSuccess: ()=> {
-        navigate("/dashboard")
-        toast.success(t("auth.successLogin"))
+      onSuccess: () => {
+        navigate("/dashboard");
+        toast.success(t("auth.successLogin"));
       },
-      onError: (error) => handleMutationError(error, t)
-    })
+      onError: (error) => handleMutationError(error, t),
+    });
   };
 
-  if(isPending) return <Loading />
+  if (isPending) return <Loading />;
 
   return (
     <Section className="bg-secondary h-dvh content-center">
-      <div className="form">
-        <FormHeading text="auth.loginHeading" />
+      <div className="for">
         <form
-          className="border-top w-full pt-5"
+          className="form"
           onSubmit={handleSubmit(onLogin)}
         >
-          <Input
-            id="email"
-            type="email"
-            i18nKey="auth.email"
-            register={register}
-          >
-            <CiMail />
-          </Input>
+          <FormHeading text="auth.loginHeading" />
+          <EmailInput error={errors.email} register={register} />
+          <PasswordInput register={register} error={errors?.password} />
 
-          <Input
-            id="password"
-            type="password"
-            i18nKey="auth.password"
-            register={register}
-          >
-            <CiLock />
-          </Input>
-          
-          <div className="text-accent flex-end px-2 pt-2 text-sm font-semibold">
+          <span className="text-accent flex-end px-2 pt-2 text-sm font-semibold">
             <Text
               tagElement={Link}
-              to="/forget-password"
+              to="/forgot-password"
               i18nKey="auth.forgotPassword"
-              className="hover:underline"
+              className="mt-2 hover:underline"
             />
-          </div>
-          <FormButton i18nKey="auth.login" />
+          </span>
+          <FormButton i18nKey="auth.login" isPending={isPending} className="mt-10" />
+          <AuthRedirect i18nKey="auth.noAccount" to="/signup" />
         </form>
-        <AuthRedirect i18nKey="auth.noAccount" to="/signup" />
       </div>
     </Section>
   );

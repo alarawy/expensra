@@ -6,15 +6,20 @@ import {
   EXPENSE_CATEGORIES,
   INCOME_CATEGORIES,
 } from "../../assets/data/transactionCategories";
+import { CURRENCIES } from "../../assets/data/currencies";
 
 const SelectInput = ({ variant, value, onSelect, error }) => {
   const categories =
-    variant === "income" ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+    variant === "income"
+      ? INCOME_CATEGORIES
+      : variant === "currency"
+        ? CURRENCIES
+        : EXPENSE_CATEGORIES;
 
   const { t } = useTranslation();
   const [isFocused, setIsFocused] = useState(false);
 
-  const normalizedValue = value.trim().toLowerCase();
+  const normalizedValue = value?.trim().toLowerCase();
 
   const filtered =
     normalizedValue === ""
@@ -31,16 +36,26 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
   const ref = useOutsideClick(() => setIsFocused(false));
 
   const i18nKey =
-    variant === "income" ? "transactions.source" : "transactions.category";
+    variant === "income"
+      ? "transactions.source"
+      : variant === "currency"
+        ? "profile.currency"
+        : variant === "budget"
+          ? "budget.title"
+          : "transactions.category";
 
   const placeholderKey =
     variant === "income"
       ? "transactions.incomePlaceholder"
-      : "transactions.categoryPlaceholder";
+      : variant === "currency"
+        ? "profile.currency"
+        : "transactions.categoryPlaceholder";
 
   const selectedCategory = categories.find((cat) => cat.id === value);
 
-  const displayValue = selectedCategory ? t(selectedCategory.labelKey) : value;
+  const displayValue = selectedCategory
+    ? t(selectedCategory.labelKey)
+    : value || "";
 
   return (
     <div

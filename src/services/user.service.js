@@ -6,6 +6,11 @@ export const getUserProfile = async () => {
 };
 
 
+export const sendResetLink = async (data) => {
+    const response = await api.put("/user/forgot-password", data);
+    return response.data;
+};
+
 export const updateUserProfile = async (data) => {
     const response = await api.put("/user/profile", data);
     return response.data;

@@ -10,14 +10,27 @@ import {
 
 const TrendsChart = ({ data }) => {
   const { t, i18n } = useTranslation();
-  const dir = i18n.language === 'ar';
+  const dir = i18n.language === "ar";
 
   return (
     <AreaChart responsive data={data} width="100%" height={400}>
-      <CartesianGrid strokeDasharray="3 3" stroke="#3990ab" reversed={dir}/>
+      <CartesianGrid strokeDasharray="3 3" stroke="#3990ab" reversed={dir} />
       <XAxis dataKey="day" reversed={dir} />
-      <YAxis width="auto" orientation={dir ? "right" : "left"} tick={{ textAnchor: 'end'}} />
-      <Tooltip formatter={(value) => [value, t("expenses.spending")]} />
+      <YAxis
+        width="auto"
+        orientation={dir ? "right" : "left"}
+        tick={{ textAnchor: "end" }}
+      />
+      <Tooltip
+        formatter={(value) => [value, t("expenses.spending")]}
+        contentStyle={{
+          borderRadius: "8px",
+          color: "var(--tooltip-text)",
+          border: "none",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.15)",
+          background: "var(--tooltip-bg)",
+        }}
+      />
       <Area
         width="100%"
         type="monotone"

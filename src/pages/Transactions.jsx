@@ -10,7 +10,7 @@ const Transactions = () => {
       <Text
         tagElement="h1"
         i18nKey="sidebar.transactions"
-        className="text-accent text-4xl font-bold"
+        className="text-accent mb-5 md:mb-10 text-3xl md:text-4xl font-bold"
       />
       <TransactionsFilters value={type} onChange={setType} />
       <TransactionsTable data={tableData} variant="transactions" />

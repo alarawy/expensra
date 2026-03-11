@@ -26,7 +26,7 @@ const TransactionsForm = ({ variant }) => {
     reset();
   };
   return (
-    <div className="bg-primary m-0 mt-10 rounded-md p-5 lg:p-8">
+    <div className="bg-primary m-0 rounded-md p-5 lg:p-8">
       <Text
         tagElement="h4"
         i18nKey={`${variant === "income" ? "income.addNewIncome" : "expenses.addNewExpense"}`}
@@ -87,6 +87,7 @@ const TransactionsForm = ({ variant }) => {
 
         <FormButton
           i18nKey={`${variant === "income" ? "income.addIncome" : "expenses.addExpense"}`}
+          className="mt-10"
         />
       </form>
     </div>

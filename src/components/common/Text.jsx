@@ -11,7 +11,6 @@ const Text = ({
   const { t } = useTranslation();
   const Tag = tagElement;
 
-  // حالة JSX داخل الترجمة
   if (components && i18nKey) {
     return (
       <Tag {...props}>
@@ -20,12 +19,10 @@ const Text = ({
     );
   }
 
-  // ترجمة عادية
   if (i18nKey) {
-    return <Tag {...props}>{t(i18nKey, values)}</Tag>;
+    return <Tag {...props}>{t(i18nKey, values)} {children}</Tag>;
   }
 
-  // fallback عادي
   return <Tag {...props}>{children}</Tag>;
 };
 
