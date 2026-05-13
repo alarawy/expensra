@@ -46,37 +46,40 @@ const Sidebar = ({ isOpenMenu, handleOpenMenu }) => {
           isOpenMenu ? "ltr:left-0 rtl:right-0" : "ltr:-left-125 rtl:-right-125"
         }`}
       >
-        <div className="relative h-full">
+        <div className="flex h-full flex-col">
           <button
             type="button"
-            className="icons-scale absolute top-0 text-2xl lg:hidden ltr:right-0 rtl:left-0"
+            className="icons-scale absolute top-4 text-2xl lg:hidden ltr:right-4 rtl:left-4"
             onClick={() => handleOpenMenu(false)}
           >
             <FaXmark />
           </button>
 
-          <Logo className="m-auto w-30 pb-5" />
+          <Logo showTitle className="m-auto w-30" />
+          <div className="flex-between mt-8 flex-1 flex-col">
+            <ul className="border-top w-full flex-1 space-y-3 pt-5">
+              {links.map((link, index) => (
+                <li key={index} onClick={() => handleOpenMenu(false)}>
+                  <NavLink className="link" to={link.path}>
+                    <span className="text-2xl">{link.icon}</span>
+                    <Text tagElement="span" i18nKey={link.i18nKey} />
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
 
-          <ul className="border-top space-y-3 pt-10">
-            {links.map((link, index) => (
-              <li key={index} onClick={() => handleOpenMenu(false)}>
-                <NavLink className="link" to={link.path}>
-                  <span className="text-2xl">{link.icon}</span>
-                  <Text tagElement="span" i18nKey={link.i18nKey} />
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-
-          <Text
-            tagElement="button"
-            type="button"
-            onClick={() =>
-              openModal("logoutConfirm", logoutUser())
-            }
-            className="link flex-center absolute bottom-0 left-0 w-full bg-red-700 text-white hover:bg-red-600"
-            i18nKey="auth.logout"
-          />
+            <Text
+              tagElement="button"
+              type="button"
+              onClick={() =>
+                openModal("logoutConfirm", {
+                  onConfirm: logoutUser,
+                })
+              }
+              className="link flex-center w-full bg-red-700 text-white hover:bg-red-600"
+              i18nKey="auth.logout"
+            />
+          </div>
         </div>
       </aside>
     </>

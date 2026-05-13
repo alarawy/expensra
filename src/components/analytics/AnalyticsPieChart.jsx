@@ -1,28 +1,14 @@
-import { Legend, Pie, PieChart, Sector, Tooltip } from "recharts";
+import { Legend, Pie, PieChart, Tooltip } from "recharts";
 import { Text } from "../common";
 import { useTranslation } from "react-i18next";
 import { RenderCustomizedLabel } from "./index";
 import { formatPieChartData } from "../../utils/index";
 import { useAppMode } from "../../hooks";
-import useIsMobile from "../../hooks/mobile/useMobile";
 
 const AnalyticsPieChart = ({ data }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isDarkMode } = useAppMode();
-  const translatedData = formatPieChartData(data, isDarkMode, t);
-  const { isMobile } = useIsMobile();
-
-  const style = isMobile
-    ? {
-        marginTop: "20px",
-        lineHeight: "24px",
-      }
-    : {
-        top: "50%",
-        right: "0",
-        transform: "translate(0, -50%)",
-        lineHeight: "24px",
-      };
+  const translatedData = formatPieChartData(data, isDarkMode, t, i18n);
 
   return (
     <div className="bg-primary mt-10 rounded-xl p-5 md:p-10">
@@ -35,11 +21,10 @@ const AnalyticsPieChart = ({ data }) => {
       <PieChart
         style={{
           width: "100%",
-          minHeight: "30vh",
-          maxHeight: "50vh",
+          minHeight: "40vh",
+          maxHeight: "60vh",
           aspectRatio: 1.618,
         }}
-        responsive
       >
         <Pie
           data={translatedData}
@@ -47,7 +32,6 @@ const AnalyticsPieChart = ({ data }) => {
           nameKey="name"
           labelLine={false}
           label={RenderCustomizedLabel}
-          cx={isMobile ? "" : "25%"}
         />
         <Tooltip
           itemStyle={{ color: "var(--tooltip-text)" }}
@@ -58,15 +42,10 @@ const AnalyticsPieChart = ({ data }) => {
             background: "var(--tooltip-bg)",
           }}
         />
-
-        <Legend
-          iconSize={15}
-          layout={isMobile ? "horizontal" : "vertical"}
-          verticalAlign={isMobile ? "bottom" : "middle"}
-          wrapperStyle={style}
-        />
+        <Legend />
       </PieChart>
     </div>
   );
 };
+
 export default AnalyticsPieChart;

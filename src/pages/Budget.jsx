@@ -9,7 +9,7 @@ const Budget = () => {
       <Text
         tagElement="h1"
         i18nKey="sidebar.budget"
-        className="text-accent mb-5 text-2xl font-bold md:mb-10 md:text-4xl"
+        className="text-accent mb-5 text-2xl font-bold md:text-4xl"
       />
       <LeftoverDecisionCard />
       <SavingsProgressCard />

@@ -133,10 +133,10 @@ select:-webkit-autofill {
 @layer components {
   /* ===== Layout ===== */
   .header {
-    @apply col-span-full col-start-1 flex items-center justify-between bg-(--bg-primary) px-4 text-(--text-secondary) md:px-8 lg:col-start-2 lg:justify-end;
+    @apply col-span-full col-start-1 flex items-center justify-between border-b-3 border-(--border-color) bg-(--bg-primary) px-4 text-(--text-secondary) md:px-8 lg:col-start-2 lg:justify-end;
   }
   .sidebar {
-    @apply absolute z-20 row-span-full flex h-full w-[65%] flex-col justify-between bg-(--bg-primary) p-5 shadow-2xl transition-all duration-300 ease-linear sm:w-[50%] lg:static lg:col-span-1 lg:w-full;
+    @apply absolute z-20 row-span-full flex h-full w-[65%] flex-col justify-between border-r-2 border-(--border-color) bg-(--bg-primary) p-5 shadow-2xl transition-all duration-300 ease-linear sm:w-[50%] lg:static lg:col-span-1 lg:w-full;
   }
   .main {
     @apply relative col-span-full col-start-1 row-span-full row-start-2 overflow-auto bg-(--bg-secondary) p-5 text-(--text-primary) md:p-10 lg:col-start-2;
@@ -299,5 +299,14 @@ select:-webkit-autofill {
   /* ===== Others ===== */
   .category-list {
     @apply absolute z-10 mt-1 max-h-48 w-60 overflow-auto rounded-lg border border-(--border-color) bg-(--bg-primary) py-2 font-semibold text-(--text-secondary) shadow ltr:right-0 rtl:left-0;
+  }
+  .file-input {
+    @apply w-full;
+    &::file-selector-button {
+      @apply mr-3 cursor-pointer bg-(--accent) rounded-sm px-3 py-2 text-white;
+    }
+    &::file-selector-button:hover {
+      @apply bg-(--accent-hover);
+    }
   }
 }

@@ -1,17 +1,18 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://your-api-url.com/api", // 👈 غير دي بس
+    baseURL: import.meta.env.VITE_API_URL,
     headers: {
         "Content-Type": "application/json",
-    },
-    withCredentials: true, // لو بتستخدم cookies (اختياري)
+    }
 });
 
-/* =============================== Request Interceptor =============================== */
+
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
+
+        config.headers = config.headers || {};
 
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -22,28 +23,28 @@ api.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-/* =============================== Response Interceptor =============================== */
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Server response موجود
         if (error.response) {
-            const message =
+            if (error.response.status === 401) {
+                localStorage.removeItem("token");
+                window.location.href = "/login";
+            }
+
+            error.message =
                 error.response.data?.message ||
                 error.response.data?.error ||
                 "Request failed";
 
-            return Promise.reject(message);
+            return Promise.reject(error);
         }
 
-        // Network error
         if (error.request) {
-            return Promise.reject("Network error, please try again");
+            return Promise.reject(new Error("Network error, please try again"));
         }
 
-        // Any other error
-        return Promise.reject("Something went wrong");
+        return Promise.reject(error);
     }
 );
-
 export default api;

@@ -13,6 +13,5 @@ export const analyticsPieChartData = [
   { name: "bills", value: 150 },
   { name: "entertainment", value: 180 },
   { name: "food", value: 120 },
-  { name: "netflix", value: 100 },
   { name: "fuel", value: 80 },
 ];

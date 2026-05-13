@@ -4,13 +4,12 @@ import {
     signupUser,
     logoutUser,
     getCurrentUser,
+    verifyUser,
 } from "../../services/auth.service.js";
 
 
 
-export const AUTH_QUERY_KEYS = {
-    currentUser: ["auth", "currentUser"],
-};
+export const AUTH_QUERY_KEY = ["user"]
 
 export const useLoginUser = () => {
     const queryClient = useQueryClient();
@@ -18,19 +17,43 @@ export const useLoginUser = () => {
     return useMutation({
         mutationFn: loginUser,
         onSuccess: (data) => {
-            if (data?.token) {
-                localStorage.setItem("token", data.token);
+            if (data?.access_token) {
+                localStorage.setItem("token", data.access_token);
             }
 
-            // خزّن اليوزر في الكاش
             queryClient.setQueryData(
-                AUTH_QUERY_KEYS.currentUser,
+                AUTH_QUERY_KEY,
                 data.user
             );
         },
     });
 };
 
+export const useVerifyUser = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: verifyUser,
+        onSuccess: (data) => {
+            if (!data) return;
+
+            if (data?.access_token) {
+                localStorage.setItem("token", data.access_token);
+            }
+
+            if (data?.user) {
+                queryClient.setQueryData(
+                    AUTH_QUERY_KEY,
+                    data.user
+                );
+            }
+
+            queryClient.invalidateQueries({
+                queryKey: AUTH_QUERY_KEY,
+            });
+        },
+    });
+};
 
 export const useSignupUser = () => {
     const queryClient = useQueryClient();
@@ -38,12 +61,12 @@ export const useSignupUser = () => {
     return useMutation({
         mutationFn: signupUser,
         onSuccess: (data) => {
-            if (data?.token) {
-                localStorage.setItem("token", data.token);
+            if (data?.access_token) {
+                localStorage.setItem("token", data.access_token);
             }
 
             queryClient.setQueryData(
-                AUTH_QUERY_KEYS.currentUser,
+                AUTH_QUERY_KEY,
                 data.user
             );
         },
@@ -53,15 +76,12 @@ export const useSignupUser = () => {
 
 export const useLogoutUser = () => {
     const queryClient = useQueryClient();
-    
+
     return useMutation({
         mutationFn: logoutUser,
         onSuccess: () => {
             localStorage.removeItem("token");
-
-            queryClient.removeQueries({
-                queryKey: AUTH_QUERY_KEYS.currentUser,
-            });
+            queryClient.clear();
         },
     });
 };
@@ -69,9 +89,9 @@ export const useLogoutUser = () => {
 
 export const useGetCurrentUser = () => {
     return useQuery({
-        queryKey: AUTH_QUERY_KEYS.currentUser,
+        queryKey: AUTH_QUERY_KEY,
         queryFn: getCurrentUser,
         retry: false,
-        staleTime: 5 * 60 * 1000, // 5 دقائق
+        staleTime: 5 * 60 * 1000,
     });
 };

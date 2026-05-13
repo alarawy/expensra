@@ -1,25 +1,35 @@
+import { Link } from "react-router-dom";
 import { Avatar, Text } from "../common";
+import { FaKey } from "../../assets/icons/icons";
+import { useGetCurrentUser } from "../../hooks";
 
 const ProfileInfo = () => {
-  const user = {
-    firstName: "Ahmed",
-    lastName: "Reda",
-    email: "ahmed@gmail.com",
-  };
+  const { data } = useGetCurrentUser();
+  const { first_name, last_name, email } = data || "";
 
   return (
-    <div className="card py-10 border-0 m-0">
-      <div className="flex-center text-center flex-col md:text-start md:flex-row md:justify-start gap-10">
-        <Avatar className="w-30 h-30"/>
-        <div>
+    <div className="card m-0 border-0 py-10">
+      <div className="flex-center flex-col gap-10 text-center md:flex-row md:justify-between md:text-start">
+        <Avatar className="h-30 w-30" />
+        <div className="flex-1 text-center md:text-start">
           <Text
             tagElement="h3"
-            className="font-medium text-xl"
-          >{`${user.firstName} ${user.lastName}`}</Text>
+            className="text-xl font-medium"
+          >{`${first_name} ${last_name}`}</Text>
           <Text tagElement="p" className="text-secondary">
-            {user.email}
+            {email}
           </Text>
         </div>
+        <Text
+          tagElement={Link}
+          to="/change-password"
+          i18nKey="profile.changePassword"
+          className="text-accent flex-end cursor-pointer text-end"
+        >
+          <span className="px-1">
+            <FaKey />
+          </span>
+        </Text>
       </div>
     </div>
   );

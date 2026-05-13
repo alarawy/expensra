@@ -1,13 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import {Loading} from "../components/common";
-import { useGetCurrentUser } from "../hooks/auth/auth.hooks"
+import { Navigate } from "react-router-dom";
+import { useGetCurrentUser } from "../hooks/auth/auth.hooks";
+import { Loading } from "../components/common";
 
-const ProtectApp = ({children}) => {
-  const navigate = useNavigate();
-  const {data: currentUser, isPending} = useGetCurrentUser();
-  if(isPending) return <Loading />
-  // if(!currentUser) return navigate("/login", {replace: true})
-  return children
-}
+const ProtectApp = ({ children }) => {
+  const { data: currentUser, isPending } = useGetCurrentUser();
 
-export default ProtectApp
+  if (isPending) return <Loading />;
+
+  if (!currentUser) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+export default ProtectApp;

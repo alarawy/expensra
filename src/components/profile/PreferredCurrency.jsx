@@ -2,7 +2,9 @@ import { useState } from "react";
 import { FormButton, SelectInput, Text } from "../common";
 
 const PreferredCurrency = () => {
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState(
+    localStorage.getItem("currency") || "EGP",
+  );
 
   return (
     <div className="bg-primary mt-8 rounded-md p-10">
@@ -12,15 +14,11 @@ const PreferredCurrency = () => {
         className="text-accent mb-5 text-2xl font-semibold"
       />
 
-      <form>
         <SelectInput
           variant="currency"
           value={currency}
           onSelect={setCurrency}
         />
-
-        <FormButton i18nKey="common.save" className="mt-8" />
-      </form>
     </div>
   );
 };

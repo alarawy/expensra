@@ -1,10 +1,10 @@
 import { SearchInput, SelectType} from "./index"
 
-const TransactionsFilters = ({value, onChange}) => {
+const TransactionsFilters = () => {
   return (
     <div className="flex-between m-0 h-12 gap-4">
         <SearchInput />
-        <SelectType value={value} onChange={onChange}/>
+        <SelectType />
     </div>
   )
 }

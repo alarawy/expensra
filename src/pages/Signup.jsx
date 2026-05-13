@@ -14,8 +14,7 @@ import {
   Section,
 } from "../components/common/index";
 import { CiUser, CiMail, CiLock } from "../assets/icons/icons";
-import toast from "react-hot-toast";
-import { handleMutationError } from "../utils";
+import { showToast } from "../utils";
 
 const Signup = () => {
   const {
@@ -31,13 +30,12 @@ const Signup = () => {
   const { t } = useTranslation();
 
   const onSignUp = (data) => {
-    console.log(data);
     signUer(data, {
       onSuccess: () => {
-        navigate("/dashboard");
-        toast.success(t("auth.successRegister"));
+        navigate("/otp");
+        showToast("auth.successLogin", "success", t);
       },
-      onError: (error) => handleMutationError(error, t),
+      onError: () => showToast("auth.signupError", "error", t),
     });
     reset();
   };
@@ -45,19 +43,16 @@ const Signup = () => {
   if (isPending) return <Loading />;
 
   return (
-    <Section className="bg-secondary h-dvh content-center">
-      <form
-        className="form"
-        onSubmit={handleSubmit(onSignUp)}
-      >
+    <Section className="bg-secondary h-dvh content-center px-3">
+      <form className="form" onSubmit={handleSubmit(onSignUp)}>
         <FormHeading text="auth.signupHeading" />
         <div className="flex-between">
           <span className="w-[48%]">
             <Input
               i18nKey="auth.firstName"
-              id="firstName"
+              id="first_name"
               register={register}
-              error={errors?.firstName}
+              error={errors?.first_name}
             >
               <CiUser />
             </Input>
@@ -65,9 +60,9 @@ const Signup = () => {
           <span className="w-[48%]">
             <Input
               i18nKey="auth.lastName"
-              id="lastName"
+              id="last_name"
               register={register}
-              error={errors?.lastName}
+              error={errors?.last_name}
             >
               <CiUser />
             </Input>
@@ -78,11 +73,15 @@ const Signup = () => {
         <PasswordInput register={register} error={errors?.password} />
         <ConfirmPasswordInput
           register={register}
-          error={errors?.confirmPassword}
+          error={errors?.password_confirmation}
           getValues={getValues}
         />
 
-        <FormButton i18nKey="auth.register" isPending={isPending} className="mt-10" />
+        <FormButton
+          i18nKey="auth.register"
+          isPending={isPending}
+          className="mt-10"
+        />
         <AuthRedirect i18nKey="auth.haveAccount" to="/login" />
       </form>
     </Section>

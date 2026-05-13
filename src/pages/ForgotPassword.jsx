@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { EmailInput, FormButton, Section, Text } from "../components/common";
 import { BsExclamationOctagon, FaExclamation } from "../assets/icons/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
 
 const ForgotPassword = () => {
@@ -14,17 +14,21 @@ const ForgotPassword = () => {
       email: "",
     },
   });
-  const { mutate: resetLink, isPending } = useForgotPassword();
+  const { mutate: OTPFun, isPending } = useForgotPassword();
+
   const navigate = useNavigate();
+  const [ searchParams ] = useSearchParams();
+  const title = searchParams.get("type");
 
   const onSubmit = (data) => {
-    console.log(data);
-    resetLink(data, {
+    OTPFun(data, {
       onSuccess: () => {
         navigate("/reset-password");
+        localStorage.setItem("resetEmail", data.email);
       },
     });
   };
+
   return (
     <Section className="bg-secondary text-primary h-dvh content-center p-4">
       <form onSubmit={handleSubmit(onSubmit)} className="form">
@@ -34,6 +38,11 @@ const ForgotPassword = () => {
         <Text
           tagElement="h1"
           i18nKey="auth.forgotPassword"
+          i18nKey={
+            title === "change"
+              ? "profile.changePassword"
+              : "auth.forgotPassword"
+          }
           className="text-accent pt-2 text-center text-2xl font-semibold md:text-4xl"
         />
         <Text
@@ -45,18 +54,16 @@ const ForgotPassword = () => {
         <div className="flex-end relative w-80 items-center gap-5 pb-5 ltr:ml-auto rtl:mr-auto">
           <Text
             tagElement={Link}
-            to="/login"
-            i18nKey="auth.backToLogin"
+            to={-1}
+            i18nKey="auth.goToBack"
             className="text-accent flex-end mt-10 w-full text-sm hover:underline"
           />
-          <FormButton i18nKey="auth.sendResetCode" isPending={isPending} className="mt-10" />
-        </div>
-        {isPending && (
-          <Text
-            i18nKey="auth.forgotPasswordMessage"
-            className="text-secondary flex-center absolute bottom-3 text-xs"
+          <FormButton
+            i18nKey="auth.sendResetCode"
+            isPending={isPending}
+            className="mt-10"
           />
-        )}
+        </div>
       </form>
     </Section>
   );

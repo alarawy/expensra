@@ -2,11 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CategoryList, Input } from "./index";
 import { useOutsideClick } from "../../hooks";
-import {
-  EXPENSE_CATEGORIES,
-  INCOME_CATEGORIES,
-} from "../../assets/data/transactionCategories";
-import { CURRENCIES } from "../../assets/data/currencies";
+import { CURRENCIES, EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../../utils/constants";
+
 
 const SelectInput = ({ variant, value, onSelect, error }) => {
   const categories =
@@ -30,6 +27,9 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
 
   const handleSelect = (cat) => {
     onSelect(cat.id);
+    if (variant === "currency") {
+      localStorage.setItem("currency", cat.id);
+    }
     setIsFocused(false);
   };
 

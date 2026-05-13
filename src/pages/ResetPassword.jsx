@@ -1,51 +1,84 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useResetUserPassword } from "../hooks";
 import {
   ConfirmPasswordInput,
   FormButton,
+  Input,
   PasswordInput,
   Section,
   Text,
 } from "../components/common";
-import { useChangeUserPassword } from "../hooks";
-import { useNavigate } from "react-router-dom";
+import { FaKey } from "../assets/icons/icons";
+import { useTranslation } from "react-i18next";
+import { showToast } from "../utils";
 
 const ResetPassword = () => {
+  const email = localStorage.getItem("resetEmail");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
-  const { mutate: changePassword, isPending } = useChangeUserPassword();
+
+  const { mutate: resetUserPassword, isPending } = useResetUserPassword();
+
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onSubmit = (data) => {
-    console.log(data);
-    changePassword(data, {
+    const newData = {
+      ...data,
+      email: email,
+    };
+
+    resetUserPassword(newData, {
       onSuccess: () => {
         navigate("/login");
+        localStorage.removeItem("resetEmail");
+        showToast("auth.passwordReset", "success", t)
       },
     });
   };
+
   return (
     <Section className="bg-secondary text-primary h-dvh content-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="form"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <span className="flex-center text-accent py-3 text-5xl">
+          <FaKey />
+        </span>
         <Text
           tagElement="h1"
           i18nKey="auth.resetDescription"
-          className="py-5 text-center text-2xl"
+          className="border-bottom pb-6 text-center text-2xl"
         />
-        <PasswordInput
+
+        <Input
+          i18nKey="auth.otpTitle"
+          id="otp"
           register={register}
-          error={errors?.error}
+          rules={{ required: "auth.requiredField" }}
+          error={errors?.otp}
         />
+
+        <PasswordInput
+          i18nKey="auth.newPassword"
+          register={register}
+          error={errors?.password}
+        />
+
         <ConfirmPasswordInput
           register={register}
-          error={errors?.confirmedPassword}
+          error={errors?.password_confirmation}
+          getValues={getValues}
         />
-        <FormButton i18nKey="auth.resetPassword" isPending={isPending} className="mt-10" />
+        <FormButton
+          i18nKey="auth.resetPassword"
+          isPending={isPending}
+          className="mt-10"
+        />
       </form>
     </Section>
   );

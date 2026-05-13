@@ -1,38 +1,37 @@
+import { memo } from "react";
 import { AddBudgetBtn } from "../../budget";
 import { Text } from "../index";
 import { TransactionsTableHeader, TransactionsTableRow } from "./index";
+import { TABLE_HEADERS, TABLE_TITLES } from "../../../utils/constants";
+import { useSearchParams } from "react-router-dom";
+
+const EMPTY_MESSAGES = {
+  noData: "transactions.startByAddingTransaction",
+  noResults: "transactions.noSearchResults",
+};
 
 const TransactionsTable = ({ data, variant }) => {
-  const tableHeader = ["category", "amount", "date", "description"];
+  const tableHeader = TABLE_HEADERS[variant] || TABLE_HEADERS.expense;
+  const i18Key = TABLE_TITLES[variant];
 
-  switch (variant) {
-    case "transactions":
-      tableHeader.unshift("type");
-      break;
-    case "income":
-      tableHeader.splice(0, 1, "source");
-      tableHeader.push("actions");
-      break;
-    case "budget":
-      tableHeader.splice(1, 3, "limit", "spent", "status");
-      break;
-    default:
-      break;
-  }
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
 
-  const i18Key =
-    variant === "income"
-      ? "income.allIncomeRecords"
-      : variant === "transactions"
-        ? "transactions.allTransactions"
-        : variant === "budget"
-          ? "budget.currentBudgets"
-          : "expenses.allExpenseRecords";
+  const hasData = data?.length > 0;
+  const isSearching = search.trim().length > 0;
+
+  const emptyKey = !hasData
+    ? isSearching
+      ? "noResults"
+      : "noData"
+    : null;
 
   return (
     <div className="overflow-x-auto">
       <div
-        className={`${data.length != 0 ? "min-w-xl" : ""} bg-primary mt-8 rounded-lg p-5 lg:p-10`}
+        className={`${
+          hasData ? "min-w-2xl" : ""
+        } bg-primary mt-8 rounded-lg p-5 lg:p-10`}
       >
         <div className="flex-between">
           <Text
@@ -40,9 +39,11 @@ const TransactionsTable = ({ data, variant }) => {
             i18nKey={i18Key}
             className="text-accent text-xl font-semibold"
           />
+
           {variant === "budget" && <AddBudgetBtn />}
         </div>
-        {data.length != 0 ? (
+
+        {hasData ? (
           <>
             <TransactionsTableHeader tableHeader={tableHeader} />
             <TransactionsTableRow
@@ -54,7 +55,7 @@ const TransactionsTable = ({ data, variant }) => {
         ) : (
           <Text
             tagElement="h4"
-            i18nKey="transactions.startByAddingTransaction"
+            i18nKey={EMPTY_MESSAGES[emptyKey]}
             className="text-secondary text-md py-8 text-center md:text-3xl"
           />
         )}
@@ -63,4 +64,4 @@ const TransactionsTable = ({ data, variant }) => {
   );
 };
 
-export default TransactionsTable;
+export default memo(TransactionsTable);

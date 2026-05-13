@@ -7,7 +7,7 @@ const Profile = () => {
       <Text
         tagElement="h1"
         i18nKey="profile.title"
-        className="text-accent mb-5 md:mb-10 text-2xl md:text-4xl font-bold"
+        className="text-accent mb-5 text-2xl md:text-4xl font-bold"
       />
       <ProfileInfo />
       <UpdateProfile />

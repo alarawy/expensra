@@ -1,7 +1,12 @@
-import { useForm, Controller } from "react-hook-form";
-import { DatePickerInput, FormButton, Input, Text } from "../index";
-
-import { SelectInput } from "../index";
+import { Controller } from "react-hook-form";
+import { useTransactionForm } from "../../../hooks";
+import {
+  DatePickerInput,
+  FormButton,
+  Input,
+  SelectInput,
+  Text,
+} from "../../common/index";
 
 const TransactionsForm = ({ variant }) => {
   const {
@@ -9,29 +14,25 @@ const TransactionsForm = ({ variant }) => {
     handleSubmit,
     control,
     formState: { errors },
-    reset,
-  } = useForm({
-    defaultValues: {
-      category: "",
-      amount: "",
-      description: "",
-      date: null,
-    },
-  });
+    onSubmit,
+    onCancel,
+    isEdit,
+    isAdding,
+    isEditing,
+  } = useTransactionForm(variant);
 
-  const isDateRange = variant === "income";
-
-  const onSubmit = (expense) => {
-    console.log("Submitted expense:", expense);
-    reset();
-  };
   return (
     <div className="bg-primary m-0 rounded-md p-5 lg:p-8">
       <Text
         tagElement="h4"
-        i18nKey={`${variant === "income" ? "income.addNewIncome" : "expenses.addNewExpense"}`}
+        i18nKey={
+          variant === "income"
+            ? "income.addNewIncome"
+            : "expenses.addNewExpense"
+        }
         className="text-accent text-xl font-semibold"
       />
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="m-auto mt-5 w-full lg:w-md"
@@ -39,7 +40,7 @@ const TransactionsForm = ({ variant }) => {
         <Controller
           name="category"
           control={control}
-          rules={{ required: "expenses.selectCategory" }}
+          rules={{ required: variant === "income" ? "income.selectSource" : "expenses.selectCategory"}}
           render={({ field }) => (
             <SelectInput
               value={field.value}
@@ -55,40 +56,55 @@ const TransactionsForm = ({ variant }) => {
           register={register}
           i18nKey="transactions.amount"
           placeholderKey="transactions.amountPlaceholder"
-          error={errors?.amount}
           rules={{
             required: "auth.requiredField",
-            min: { value: 1, message: "expenses.amountMin" },
+            validate: (value) => Number(value) > 0 || "transactions.amountMin",
           }}
+          error={errors?.amount}
         />
 
         <Controller
           control={control}
-          name="date"
-          rules={{ required: "auth.requiredField" }}
+          name="transaction_date"
+          rules={{ required: "dates.selectDate" }}
           render={({ field }) => (
             <DatePickerInput
-              dateRange={isDateRange}
               value={field.value}
               onChange={field.onChange}
-              error={errors?.date}
+              error={errors?.transaction_date}
             />
           )}
         />
 
         <Input
-          id="description"
+          id="notes"
           register={register}
           i18nKey="transactions.description"
           placeholderKey="transactions.descriptionPlaceholder"
-          error={errors?.description}
           rules={{}}
         />
 
-        <FormButton
-          i18nKey={`${variant === "income" ? "income.addIncome" : "expenses.addExpense"}`}
-          className="mt-10"
-        />
+        <div className="flex-end mt-10 gap-5">
+          {isEdit && (
+            <FormButton
+              type="reset"
+              i18nKey="common.cancel"
+              className="text-accent bg-transparent"
+              onClick={onCancel}
+            />
+          )}
+
+          <FormButton
+            i18nKey={
+              isEdit
+                ? "common.edit"
+                : variant === "income"
+                  ? "income.addIncome"
+                  : "expenses.addExpense"
+            }
+            isPending={isAdding || isEditing}
+          />
+        </div>
       </form>
     </div>
   );
