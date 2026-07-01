@@ -1,10 +1,9 @@
-import { useCategoryPieData } from "../../../../hooks";
+import { useCategoriesData } from "../../../../hooks";
 import { Spinner, Text } from "../../../common";
 import CategoryPieChart from "./CategoryPieChart";
 
 const SpendingByCategoryChart = () => {
-  const { data, isPending } = useCategoryPieData();
-
+  const { data, isPending } = useCategoriesData();
   return (
     <div className="card relative flex min-h-110 w-full flex-1 flex-col">
       <Text

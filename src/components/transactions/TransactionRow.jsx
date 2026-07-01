@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { formatPrice, formatTranslatedText } from "../../utils";
-import { TransactionActions } from "../common/transactions";
 
 const TransactionRow = ({ item }) => {
   const { t, i18n } = useTranslation();

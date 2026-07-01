@@ -1,35 +1,62 @@
 import { useSearchParams } from "react-router-dom";
 import { Text } from "../../common";
 
-const OPTIONS = ["30Days", "60Days", "90Days"];
+const currentMonth = new Date().getMonth() + 1;
+const previousMonth = currentMonth - 1;
+const twoMonthsAgo = currentMonth - 2;
+
+const MONTH_OPTIONS = [
+  {
+    label: "thisMonth",
+    value: currentMonth,
+  },
+  {
+    label: "lastMonth",
+    value: previousMonth,
+  },
+  {
+    label: "twoMonthsAgo",
+    value: twoMonthsAgo,
+  },
+];
 
 const DateRangeToggle = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const lastDays = searchParams.get("last") || OPTIONS[0];
 
-  const handleSelect = (range) => {
-    setSearchParams({ last: range });
+  const selectedMonth = Number(searchParams.get("month")) || currentMonth;
+
+  const handleSelectMonth = (month) => {
+    if (month === currentMonth) {
+      setSearchParams({});
+      return;
+    }
+
+    setSearchParams({ month: String(month) });
   };
 
   return (
     <ul
       role="tablist"
-      className="bg-primary flex-end w-fit rounded-lg ltr:ml-auto rtl:mr-auto"
+      className="bg-primary flex-end w-fit whitespace-nowrap rounded-lg ltr:ml-auto rtl:mr-auto"
     >
-      {OPTIONS.map((range) => (
+      {MONTH_OPTIONS.map((option) => (
         <Text
+          key={option.value}
           tagElement="li"
-          i18nKey={`ranges.${range}`}
-          key={range}
           role="tab"
-          aria-selected={lastDays === range}
+          i18nKey={`dates.${option.label}`}
+          aria-selected={selectedMonth === option.value}
           tabIndex={0}
-          className={`cursor-pointer rounded-lg px-3 py-2 transition-colors duration-200 ease-in-out ${
-            lastDays === range ? "bg-accent text-primary" : "text-secondary"
+          className={`cursor-pointer rounded-lg px-3 py-2 transition-colors  duration-200 ease-in-out ${
+            selectedMonth === option.value
+              ? "bg-accent text-primary"
+              : "text-secondary"
           }`}
-          onClick={() => handleSelect(range)}
+          onClick={() => handleSelectMonth(option.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") handleSelect(range);
+            if (e.key === "Enter" || e.key === " ") {
+              handleSelectMonth(option.value);
+            }
           }}
         />
       ))}

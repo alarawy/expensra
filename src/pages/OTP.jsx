@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import { FormButton, Input, Section, Text } from "../components/common";
 import { MdOutlineMailLock } from "../assets/icons/icons";
-import { useVerifyUser } from "../hooks";
+import { useResendOTP, useVerifyUser } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { showToast } from "../utils";
 
 const OTP = () => {
   const { mutate: verify, isPending } = useVerifyUser();
+  const { mutate: resendCode, isPending: isResend } = useResendOTP();
 
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -16,11 +17,24 @@ const OTP = () => {
   const onSubmit = (data) => {
     verify(data, {
       onSuccess: () => {
-        navigate("/reset-password");
+        navigate("/", { replace: true });
         showToast("auth.successRegister", "success", t);
+        localStorage.removeItem('user');
+      },
+      onError: () => {
+        showToast("auth.invalidOtp", "error", t);
       },
     });
   };
+
+  const resendOTP = ()=>{
+    const data = JSON.parse(localStorage.getItem('user'))
+    resendCode(data, {
+      onSuccess: ()=> {
+        showToast("auth.verificationCodeResent", "success", t)
+      }
+    })
+  }
 
   return (
     <Section className="bg-secondary text-primary h-dvh content-center">
@@ -45,14 +59,21 @@ const OTP = () => {
           className="mt-10"
           isPending={isPending}
         />
+        <div>
+
         <Text
           tagElement="h5"
           i18nKey="auth.otpResendCode"
           className="text-muted text-md pt-3 text-center"
           components={[
-            <button type="button" className="text-accent cursor-pointer" />,
+            <button
+            type="button"
+            onClick={resendOTP}
+            className={`text-accent cursor-pointer ${isResend ? "cursor-not-allowed" : ""}`}
+            />,
           ]}
-        />
+          />
+          </div>
       </form>
     </Section>
   );

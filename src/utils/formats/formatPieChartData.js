@@ -35,15 +35,15 @@ const formatPieChartData = (
     : LIGHT_COLORS;
 
   return data?.map((item, index) => {
-    const key = `categories.${item.name.toLowerCase()}`;
+    const key = `categories.${item.categoryName.toLowerCase()}`;
 
     return {
       ...item,
-
-      name: i18n.exists(key)
+      total: Number(item.totalExpenses),
+      categoryName: i18n.exists(key)
         ? t(key)
-        : item.name.charAt(0).toUpperCase() +
-          item.name.slice(1),
+        : item.categoryName.charAt(0).toUpperCase() +
+          item.categoryName.slice(1),
 
       fill: COLORS[index % COLORS.length],
     };

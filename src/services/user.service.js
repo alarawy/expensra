@@ -6,7 +6,7 @@ export const requestOTP = async (data) => {
 };
 
 export const updateUserProfile = async (data) => {
-    const response = await api.put("/api/user", data);
+    const response = await api.put("/api/profile/update", data);
     return response.data;
 };
 

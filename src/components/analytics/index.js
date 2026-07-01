@@ -1,3 +1,8 @@
 export { default as AnalyticsBarChart } from './AnalyticsBarChart'
 export { default as AnalyticsPieChart } from './AnalyticsPieChart'
 export { default as RenderCustomizedLabel } from './RenderCustomizedLabel'
+export { default as AverageStatistics } from './AverageStatistics'
+export { default as AnalyticsCard } from './AnalyticsCard'
+export { default as SavingsLineChart } from './SavingsLineChart'
+export { default as FinancialInsights } from './FinancialInsights'
+export { default as FinancialInsightsItem } from './FinancialInsightsItem'

@@ -1,16 +1,12 @@
-const formatDate = (
-  date,
-  locale = "en-US"
-) => {
-  return new Date(date).toLocaleString(locale, {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    // hour: "numeric",
-    // minute: "2-digit",
-    // second: "2-digit",
-    // hour12: true,
-  });
+const formatDate = (inputDate) => {
+  if (!inputDate) return "";
+
+  const date = new Date(inputDate); // التاريخ اللي هيتبعت
+  const now = new Date();
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 };
+
 export default formatDate;

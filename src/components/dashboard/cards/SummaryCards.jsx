@@ -4,33 +4,30 @@ import {
   FaArrowTrendUp,
   FaBitcoin,
 } from "../../../assets/icons/icons";
-import { useFinancialSummary } from "../../../hooks";
+import { useMonthlySummary } from "../../../hooks";
 
 const SummaryCards = () => {
-  const { data, isPending } = useFinancialSummary();
-  const totalExpenses = data?.totalExpenses;
-  const totalIncomes = data?.totalIncomes;
-  const remainingAmount = data?.remainingAmount;
-  
+  const { totalIncomes, totalExpenses, totalBalance, isPending } =
+    useMonthlySummary();
   return (
-    <div className="m-0 flex flex-wrap gap-8 border-bottom py-10">
+    <div className="border-bottom m-0 flex flex-wrap gap-8 py-10">
       <SummaryCard
         i18nKey="dashboard.totalBalance"
-        amount={remainingAmount?.remaining_amount}
+        amount={totalBalance}
         isPending={isPending}
-        >
+      >
         <FaBitcoin />
       </SummaryCard>
       <SummaryCard
         i18nKey="income.totalIncome"
-        amount={totalIncomes?.incomes_by_category?.total_incomes}
+        amount={totalIncomes}
         isPending={isPending}
-        >
+      >
         <FaArrowTrendDown />
       </SummaryCard>
       <SummaryCard
         i18nKey="expenses.totalExpenses"
-        amount={totalExpenses?.expenses_by_category?.total_expenses}
+        amount={totalExpenses}
         isPending={isPending}
       >
         <FaArrowTrendUp />

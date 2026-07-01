@@ -8,6 +8,7 @@ import ProtectApp from "./ProtectApp";
 // Lazy Pages
 const Analytics = lazy(() => import("../pages/Analytics"));
 const Budget = lazy(() => import("../pages/Budget"));
+const Goals = lazy(() => import("../pages/Goals"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const ForgotPassword = lazy(() => import("../pages/ForgotPassword"));
 const Login = lazy(() => import("../pages/Login"));
@@ -117,6 +118,14 @@ const AppRoutes = () => {
           element={
             <LazyLoad>
               <Budget />
+            </LazyLoad>
+          }
+        />
+        <Route
+          path="/goals"
+          element={
+            <LazyLoad>
+              <Goals />
             </LazyLoad>
           }
         />

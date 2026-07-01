@@ -2,18 +2,51 @@ import { FormButton, Input, Text } from "../common";
 import { useForm } from "react-hook-form";
 import { CiMail, CiUser } from "../../assets/icons/icons";
 import { useGetCurrentUser, useUpdateUserProfile } from "../../hooks";
+import { showToast } from "../../utils";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const UpdateProfile = () => {
-  const {
-    data: { email },
-  } = useGetCurrentUser();
+  const { data } = useGetCurrentUser();
   const { mutate: updateProfile, isPending } = useUpdateUserProfile();
+  const { t } = useTranslation();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm({
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      profile_image: "",
+    },
+  });
   const onUpdate = (data) => {
-    console.log(data);
-    updateProfile(data);
+    const file = data.profile_image?.[0];
+    const updatedUserData = {
+      ...data,
+      profile_image: file ? file.name : null,
+      _method: "PUT",
+    };
+    updateProfile(updatedUserData, {
+      onSuccess: () => {
+        showToast("auth.profileUpdated", "success", t);
+      },
+    });
   };
+  useEffect(() => {
+    if (data) {
+      reset({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        profile_image: "",
+      });
+    }
+  }, [data, reset]);
   return (
     <div className="bg-primary m-0 mt-8 rounded-md p-10">
       <Text
@@ -23,34 +56,44 @@ const UpdateProfile = () => {
       />
       <form onSubmit={handleSubmit(onUpdate)}>
         <div className="flex-center gap-3">
-          <Input i18nKey="auth.firstName" id="firstName" register={register}>
+          <Input
+            i18nKey="auth.firstName"
+            id="first_name"
+            register={register}
+            rules={{}}
+          >
             <CiUser />
           </Input>
-          <Input i18nKey="auth.lastName" id="lastName" register={register}>
+          <Input
+            i18nKey="auth.lastName"
+            id="last_name"
+            register={register}
+            rules={{}}
+          >
             <CiUser />
           </Input>
         </div>
         <Input
           i18nKey="auth.email"
           id="email"
-          value={email}
+          // value={data.email}
           register={register}
           readOnly
         >
           <CiMail />
         </Input>
-        <div className="flex-center gap-1 md:gap-5 mt-5">
+        <div className="flex-center mt-5 gap-1 md:gap-5">
           <Text
             tagElement="label"
             i18nKey="profile.changeAvatar"
-            className="text-secondary font-semibold flex min-w-fit"
+            className="text-secondary flex min-w-fit font-semibold"
             htmlFor="avatar"
           />
           <input
             className="file-input"
             type="file"
-            id="avatar"
-            {...register("avatar")}
+            id="profile_image"
+            {...register("profile_image")}
           />
         </div>
         <div className="flex-end mt-5 w-fit gap-3 ltr:ml-auto rtl:mr-auto">
@@ -59,7 +102,11 @@ const UpdateProfile = () => {
             i18nKey="common.reset"
             className="min-w-25 bg-transparent text-(--accent) hover:text-(--accent-hover)"
           />
-          <FormButton i18nKey="common.update" />
+          <FormButton
+            disabled={!isDirty}
+            isPending={!isDirty || isPending}
+            i18nKey={!isDirty ? "common.edit" : "common.update"}
+          />
         </div>
       </form>
     </div>

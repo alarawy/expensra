@@ -1,36 +1,35 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useGetAllTransactions } from "./transactions.hooks";
-import { normalizeTransactions } from "../../utils";
+import { normalizeData } from "../../utils";
+import { useGetMonthlyTransactions } from "./transactions.hooks";
 
 export const useFilteredTransactions = () => {
-    const { data = [] } = useGetAllTransactions();
-    const [searchParams] = useSearchParams();
-    
-    const type = searchParams.get("filter");
-    const search = searchParams.get("search") || "";
+  const month = new Date().getMonth() + 1
+  const { data, isPending } = useGetMonthlyTransactions({month: month});
+  const [searchParams] = useSearchParams();
 
-    const transactions = normalizeTransactions(data);
-    
-    const filteredData = useMemo(() => {
-        if (!transactions.length) return [];
+  const type = searchParams.get("filter");
+  const search = searchParams.get("search") || "";
 
-        const text = search.toLowerCase().trim();
+  const transactions = normalizeData(data);
 
-        return transactions.filter((item) => {
-            const matchesType = type
-                ? item.transaction_type === type
-                : true;
+  const filteredData = useMemo(() => {
+    if (!transactions.length) return [];
 
-            const matchesSearch = text
-                ? item.notes?.toLowerCase().includes(text) ||
-                item.category?.name?.toLowerCase().includes(text) ||
-                item.amount?.toString().includes(text)
-                : true;
+    const text = search.toLowerCase().trim();
 
-            return matchesType && matchesSearch;
-        });
-    }, [transactions, type, search]);
+    return transactions.filter((item) => {
+      const matchesType = type ? item.transaction_type === type : true;
 
-    return filteredData;
+      const matchesSearch = text
+        ? item.notes?.toLowerCase().includes(text) ||
+          item.category?.name?.toLowerCase().includes(text) ||
+          item.amount?.toString().includes(text)
+        : true;
+
+      return matchesType && matchesSearch;
+    });
+  }, [transactions, type, search]);
+
+  return {filteredData, isPending};
 };

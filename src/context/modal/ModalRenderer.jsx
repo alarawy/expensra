@@ -1,5 +1,6 @@
-import { AddCategoryBudget } from "../../components/budget";
+import { AddBudgetForm } from "../../components/budget";
 import { ConfirmDialog } from "../../components/common";
+import { AddDepositForm, AddGoalsForm, ConfirmCarryOverDialog, TransferToGoalDialog } from "../../components/goals";
 import { useModal } from "./modalContext";
 
 const ModalRenderer = () => {
@@ -22,14 +23,45 @@ const ModalRenderer = () => {
         <ConfirmDialog
           openDialog={true}
           handleOpenDialog={closeModal}
-          variant="delete"
           {...modal.props}
         />
       );
 
-    case "addCategoryBudget":
+    case "addBudget":
       return (
-        <AddCategoryBudget
+        <AddBudgetForm
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
+    case "addGoals":
+      return (
+        <AddGoalsForm
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
+    case "leftoverSaving":
+      return (
+        <TransferToGoalDialog
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
+    case "addDeposit":
+      return (
+        <AddDepositForm
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
+    case "carryOver":
+      return (
+        <ConfirmCarryOverDialog
           openDialog={true}
           handleOpenDialog={closeModal}
           {...modal.props}

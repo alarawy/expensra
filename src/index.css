@@ -91,6 +91,9 @@
     --chart-income-active: #22c55e;
   }
 }
+* {
+  box-sizing: border-box
+}
 /* input, */
 input {
   caret-color: var(--accent);

@@ -13,7 +13,7 @@ const SummaryCards = ({ i18nKey, amount, children, isPending }) => {
         <Spinner />
       ) : (
         <h3 className="py-5 text-4xl font-semibold">
-          {formatPrice(Number(amount))}
+          {formatPrice(Number(amount) || 0)}
         </h3>
       )}
     </div>

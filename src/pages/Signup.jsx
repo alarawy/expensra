@@ -33,7 +33,7 @@ const Signup = () => {
     signUer(data, {
       onSuccess: () => {
         navigate("/otp");
-        showToast("auth.successLogin", "success", t);
+        localStorage.setItem("user", JSON.stringify({email: data.email, password: data.password}))
       },
       onError: () => showToast("auth.signupError", "error", t),
     });

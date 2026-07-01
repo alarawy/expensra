@@ -1,17 +1,34 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CategoryList, Input } from "./index";
-import { useOutsideClick } from "../../hooks";
-import { CURRENCIES, EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../../utils/constants";
-
+import {
+  useCategoriesData,
+  useGetCurrentUser,
+  useOutsideClick,
+} from "../../hooks";
+import { CURRENCIES, EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../../utils";
 
 const SelectInput = ({ variant, value, onSelect, error }) => {
+  const { data: currentUser } = useGetCurrentUser();
+  const isNormalUser = currentUser?.system_role === "normal_user";
+  const { data: categoriesBudget = [] } = useCategoriesData();
+  const budgets = categoriesBudget.map((budget) => ({
+    id: budget.name,
+    labelKey: `categories.${budget.categoryName.toLowerCase()}`,
+  }));
+
   const categories =
     variant === "income"
-      ? INCOME_CATEGORIES
+      ? isNormalUser
+        ? INCOME_CATEGORIES.slice(0, 5)
+        : INCOME_CATEGORIES
       : variant === "currency"
         ? CURRENCIES
-        : EXPENSE_CATEGORIES;
+        : variant === "budget"
+          ? budgets
+          : isNormalUser
+            ? EXPENSE_CATEGORIES.slice(0, 5)
+            : EXPENSE_CATEGORIES;
 
   const { t } = useTranslation();
   const [isFocused, setIsFocused] = useState(false);
@@ -67,6 +84,9 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
         id="selectInput"
         i18nKey={i18nKey}
         placeholderKey={placeholderKey}
+        readOnly={
+          isNormalUser && (variant === "expense" || variant === "income")
+        }
         value={displayValue}
         error={error}
         onChange={(e) => onSelect(e.target.value)}

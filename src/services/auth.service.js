@@ -20,6 +20,11 @@ export const logoutUser = async () => {
     return response.data;
 };
 
+export const resendOTP = async (data) => {
+    const response = await api.post("/api/resend-otp", data);
+    return response.data;
+};
+
 export const getCurrentUser = async () => {
     const response = await api.get("/api/user");
     return response.data;

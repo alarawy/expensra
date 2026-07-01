@@ -13,18 +13,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ModalProvider>
-        <ModalRenderer />
-        <LanguageDirection>
-          <AppModeProvider>
-            <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <ModalProvider>
+          <ModalRenderer />
+          <LanguageDirection>
+            <AppModeProvider>
               <ReactQueryDevtools initialIsOpen={false} />
               <AppRoutes />
-            </QueryClientProvider>
-          </AppModeProvider>
-        </LanguageDirection>
-      </ModalProvider>
-      <Toaster />
+            </AppModeProvider>
+          </LanguageDirection>
+        </ModalProvider>
+        <Toaster />
+      </QueryClientProvider>
     </BrowserRouter>
   );
 }

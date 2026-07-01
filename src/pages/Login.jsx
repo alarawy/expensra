@@ -32,7 +32,9 @@ const Login = () => {
         navigate("/dashboard", { replace: true });
         showToast("auth.successLogin", "success", t);
       },
-      onError: () => showToast("auth.loginError", "error", t),
+      onError: (error) => {showToast("auth.loginError", "error", t)
+        console.log(error)
+      },
     });
   };
 

@@ -1,4 +1,4 @@
-import { CURRENCIES } from "../constants/currencies";
+import { CURRENCIES } from "../constants/currencies.constants";
 
 const formatPrice = (number) => {
     const savedCurrency = localStorage.getItem("currency") || "EGP";

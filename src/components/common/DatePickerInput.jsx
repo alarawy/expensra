@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, memo } from "react";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import { arSA } from "react-day-picker/locale";
@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Input } from "./index";
 import { useOutsideClick } from "../../hooks";
 
-const DatePickerInput = ({ value, onChange, error }) => {
+const DatePickerInput = ({i18nKey="dates.date", disableNavigation = true, value, onChange, error }) => {
   const { i18n } = useTranslation();
   const locale = i18n.language === "ar" ? arSA : undefined;
 
@@ -14,13 +14,12 @@ const DatePickerInput = ({ value, onChange, error }) => {
   const ref = useOutsideClick(() => setOpen(false));
 
   const formattedValue = value ? format(value, "dd/MM/yyyy") : "";
-
   return (
     <div className="relative my-3 w-full" ref={ref}>
       <Input
         id="transaction_date"
         readOnly
-        i18nKey="dates.date"
+        i18nKey={i18nKey}
         placeholderKey={"dates.dateFormat"}
         value={formattedValue}
         onClick={() => setOpen((prev) => !prev)}
@@ -29,15 +28,17 @@ const DatePickerInput = ({ value, onChange, error }) => {
 
       {/* Calendar */}
       {open && (
-        <div className="absolute z-50 mt-2">
+        <div className="absolute z-50 top-1">
           <DayPicker
             mode="single"
             selected={value}
+            disableNavigation={disableNavigation}
             onSelect={(selected) => {
               onChange(selected);
               setOpen(false);
             }}
             locale={locale}
+            startMonth={new Date()}
             className="bg-muted text-secondary flex-between w-fit flex-col gap-3 rounded-2xl px-5 py-3 text-sm"
             classNames={{
               selected: "bg-accent rounded-full",
@@ -58,4 +59,4 @@ const DatePickerInput = ({ value, onChange, error }) => {
   );
 };
 
-export default DatePickerInput;
+export default memo(DatePickerInput);

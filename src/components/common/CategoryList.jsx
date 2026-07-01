@@ -12,9 +12,9 @@ const CategoryList = ({ value, categories, filtered, handleSelect }) => {
 
   return (
     <div className="category-list">
-      {filtered.map((cat) => (
+      {filtered.map((cat, index) => (
         <Text
-          key={cat.id}
+          key={index}
           tagElement="p"
           i18nKey={cat.labelKey}
           className="border-bottom cursor-pointer p-2 px-3 hover:bg-(--bg-secondary)"

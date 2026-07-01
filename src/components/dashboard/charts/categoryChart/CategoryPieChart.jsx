@@ -11,7 +11,7 @@ const CategoryPieChart = ({ data }) => {
   const translatedData = formatPieChartData(data, isDarkMode, t, i18n);
 
   const total = (translatedData || []).reduce(
-    (sum, item) => sum + item.total,
+    (sum, item) => +sum + +item.totalExpenses,
     0,
   );
 
@@ -20,7 +20,7 @@ const CategoryPieChart = ({ data }) => {
       <Pie
         data={translatedData}
         dataKey="total"
-        nameKey="name"
+        nameKey="categoryName"
         innerRadius={70}
         outerRadius={100}
         paddingAngle={2}

@@ -44,7 +44,6 @@ const AnalyticsBarChart = ({ data }) => {
         <XAxis
           dataKey="month"
           reversed={isRTL}
-          tickFormatter={(value) => t(`months.${value}`)}
         />
         <YAxis
           width="auto"
@@ -52,7 +51,6 @@ const AnalyticsBarChart = ({ data }) => {
           tick={{ textAnchor: "end" }}
         />
         <Tooltip
-          labelFormatter={(label) => t(`months.${label}`)}
           cursor={{ fill: "transparent" }}
           contentStyle={{
             borderRadius: "8px",

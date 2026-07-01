@@ -1,6 +1,6 @@
 import { Text } from "../../common";
 import { FaArrowTrendDown, FaArrowTrendUp } from "../../../assets/icons/icons";
-import { formatPrice, formatDate } from "../../../utils";
+import { formatPrice, formatRecentDate } from "../../../utils";
 import { useTranslation } from "react-i18next";
 
 const RecentTransaction = ({ title, amount, date, isIncome = false }) => {
@@ -16,7 +16,7 @@ const RecentTransaction = ({ title, amount, date, isIncome = false }) => {
         <div>
           <p className="text-primary font-semibold">{title}</p>
           <span className="text-muted text-xs">
-            {formatDate(date, i18n.language)}
+            {formatRecentDate(date, i18n.language)}
           </span>
         </div>
       </div>

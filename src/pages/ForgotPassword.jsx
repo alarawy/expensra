@@ -17,8 +17,6 @@ const ForgotPassword = () => {
   const { mutate: OTPFun, isPending } = useForgotPassword();
 
   const navigate = useNavigate();
-  const [ searchParams ] = useSearchParams();
-  const title = searchParams.get("type");
 
   const onSubmit = (data) => {
     OTPFun(data, {
@@ -38,11 +36,6 @@ const ForgotPassword = () => {
         <Text
           tagElement="h1"
           i18nKey="auth.forgotPassword"
-          i18nKey={
-            title === "change"
-              ? "profile.changePassword"
-              : "auth.forgotPassword"
-          }
           className="text-accent pt-2 text-center text-2xl font-semibold md:text-4xl"
         />
         <Text

@@ -1,9 +1,9 @@
 import { memo } from "react";
-import { AddBudgetBtn } from "../../budget";
 import { Text } from "../index";
 import { TransactionsTableHeader, TransactionsTableRow } from "./index";
-import { TABLE_HEADERS, TABLE_TITLES } from "../../../utils/constants";
+import { TABLE_HEADERS, TABLE_TITLES } from "../../../utils";
 import { useSearchParams } from "react-router-dom";
+import AddGoalsBtn from "../../goals/AddGoalsBtn";
 
 const EMPTY_MESSAGES = {
   noData: "transactions.startByAddingTransaction",
@@ -40,7 +40,7 @@ const TransactionsTable = ({ data, variant }) => {
             className="text-accent text-xl font-semibold"
           />
 
-          {variant === "budget" && <AddBudgetBtn />}
+          {variant === "goals" && <AddGoalsBtn />}
         </div>
 
         {hasData ? (

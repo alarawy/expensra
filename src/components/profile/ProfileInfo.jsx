@@ -5,17 +5,17 @@ import { useGetCurrentUser } from "../../hooks";
 
 const ProfileInfo = () => {
   const { data } = useGetCurrentUser();
-  const { first_name, last_name, email } = data || "";
+  const { first_name, last_name, email, profile_image } = data || {};
 
   return (
     <div className="card m-0 border-0 py-10">
       <div className="flex-center flex-col gap-10 text-center md:flex-row md:justify-between md:text-start">
-        <Avatar className="h-30 w-30" />
+        <Avatar image={profile_image} className="h-30 w-30" />
         <div className="flex-1 text-center md:text-start">
           <Text
             tagElement="h3"
             className="text-xl font-medium"
-          >{`${first_name} ${last_name}`}</Text>
+          >{`${first_name || ""} ${last_name || ""}`}</Text>
           <Text tagElement="p" className="text-secondary">
             {email}
           </Text>

@@ -1,21 +1,23 @@
 import {
+  Loading,
   Section,
   Text,
   TransactionsForm,
   TransactionsTable,
 } from "../components/common";
-import { useGetAllTransactions } from "../hooks";
-import { normalizeTransactions } from "../utils";
+import { useGetAllTransactions, useGetMonthlyTransactions } from "../hooks";
+import { normalizeData } from "../utils";
 
 const Income = () => {
-  const { data } = useGetAllTransactions();
-
-  const incomeData = normalizeTransactions(data)
+  // const { data } = useGetAllTransactions();
+  const month = new Date().getMonth() + 1
+  const { data, isPending } = useGetMonthlyTransactions({month: month});
+  const incomeData = normalizeData(data)
 
   const incomeTransactions = incomeData.filter(
     (income) => income.transaction_type == "income",
   );
-  
+  if (isPending) return <Loading />;
   return (
     <Section>
       <Text

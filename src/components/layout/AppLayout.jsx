@@ -6,7 +6,7 @@ const AppLayout = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
-    <div className="grid h-dvh grid-cols-[380px_1fr] grid-rows-[80px_1fr]">
+    <div className="grid h-dvh grid-cols-[350px_1fr] grid-rows-[80px_1fr]">
       <Header handleOpenMenu={setIsOpenMenu} />
       <Sidebar isOpenMenu={isOpenMenu} handleOpenMenu={setIsOpenMenu} />
       <main className="main">

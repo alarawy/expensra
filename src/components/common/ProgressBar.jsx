@@ -1,15 +1,10 @@
-const ProgressBar = ({ percentage }) => {
-  const getColor = () => {
-    if (percentage >= 100) return "bg-red-500";
-    if (percentage >= 80) return "bg-orange-400";
-    if (percentage >= 50) return "bg-yellow-400";
-    return "bg-green-500";
-  };
+import { getColor } from "../../utils";
 
+const ProgressBar = ({ percentage, variant = "budgets", className }) => {
   return (
-    <div className="bg-secondary mt-2 h-2 overflow-hidden rounded-full flex-1">
+    <div className={`bg-secondary h-2 flex-1 overflow-hidden rounded-full ${className}`}>
       <span
-        className={`flex h-3 rounded-full transition-all duration-500 ${getColor()}`}
+        className={`flex h-2 rounded-full transition-all duration-500 ${getColor(variant, percentage)}`}
         style={{ width: `${Math.min(percentage, 100)}%` }}
       />
     </div>

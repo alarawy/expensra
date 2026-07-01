@@ -1,25 +1,51 @@
 import { useTranslation } from "react-i18next";
-import { MdDelete, MdEdit } from "../../../assets/icons/icons";
+import {
+  FaPlus,
+  MdDelete,
+  MdEdit,
+  MdSavings,
+} from "../../../assets/icons/icons";
 import { useModal } from "../../../context";
 import { useSearchParams } from "react-router-dom";
 
-const TransactionActions = ({ onDelete, id }) => {
+const TransactionActions = ({ variant, id, onDelete }) => {
   const [, setSearchParams] = useSearchParams();
-
   const { t } = useTranslation();
   const { openModal } = useModal();
 
   const onEdit = () => {
-    setSearchParams({ transactionId: id });
-    const el = document.querySelector(".main");
-
-    el?.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    if (variant === "goals") {
+      setSearchParams({ goalId: id });
+      openModal("addGoals");
+    } else if (variant === "budget") {
+      setSearchParams({ budgetId: id });
+    } else {
+      setSearchParams({ transactionId: id });
+    }
+    if (variant != "goals") {
+      const el = document.querySelector(".main");
+      el?.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
+
   return (
-    <div className="text-primary flex-1 space-x-4 text-end">
+    <div className="text-primary flex-1 space-x-4 text-end whitespace-nowrap">
+      {variant === "goals" && (
+        <button
+          className="cursor-pointer text-xl"
+          type="button"
+          title={t("common.add")}
+          onClick={() => {
+            openModal("addDeposit");
+            setSearchParams({ goalId: id });
+          }}
+        >
+          <FaPlus />
+        </button>
+      )}
       <button
         className="text-accent cursor-pointer text-2xl"
         type="button"
@@ -34,6 +60,7 @@ const TransactionActions = ({ onDelete, id }) => {
         title={t("common.delete")}
         onClick={() =>
           openModal("deleteItem", {
+            variant: variant,
             onConfirm: () => onDelete(id),
           })
         }

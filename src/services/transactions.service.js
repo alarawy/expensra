@@ -5,6 +5,11 @@ export const getAllTransactions = async () => {
     return request.data
 }
 
+export const getMonthlyTransactions = async (data) => {
+    const request = await api.post("/api/transactions/monthly", data);
+    return request.data
+}
+
 export const GetTransaction = async (id) => {
     const request = await api.get(`/api/transactions/${id}`);
     return request.data

@@ -9,7 +9,7 @@ export default function UserProfile() {
   const [open, setOpen] = useState(false);
   const { mutate: logoutUser } = useLogoutUser();
   const {
-    data: { first_name, last_name, email },
+    data: { first_name, last_name, email, profile_image },
   } = useGetCurrentUser();
   const { openModal } = useModal();
   const ref = useOutsideClick(() => setOpen(false));
@@ -18,7 +18,7 @@ export default function UserProfile() {
   return (
     <div ref={ref} className="relative">
       <button onClick={() => setOpen(!open)}>
-        <Avatar />
+        <Avatar image={profile_image} />
       </button>
 
       {open && (
@@ -47,6 +47,7 @@ export default function UserProfile() {
             <li
               onClick={() =>
                 openModal("logoutConfirm", {
+                  variant: "logout",
                   onConfirm: logoutUser,
                 })
               }

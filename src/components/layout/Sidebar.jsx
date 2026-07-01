@@ -1,37 +1,13 @@
 import { NavLink } from "react-router-dom";
-import {
-  FaChartBar,
-  FaDollarSign,
-  FaHome,
-  FaMoneyBillTrendUp,
-  FaXmark,
-  IoWalletOutline,
-  PiHandCoinsFill,
-} from "../../assets/icons/icons";
 import { Logo, Overlay, Text } from "../common";
-import { useLogoutUser } from "../../hooks";
+import { useLogoutUser, useSidebarLinks } from "../../hooks";
 import { useModal } from "../../context";
+import { FaXmark } from "../../assets/icons/icons";
 
 const Sidebar = ({ isOpenMenu, handleOpenMenu }) => {
   const { mutate: logoutUser } = useLogoutUser();
   const { openModal } = useModal();
-
-  const links = [
-    { i18nKey: "sidebar.dashboard", path: "/dashboard", icon: <FaHome /> },
-    {
-      i18nKey: "sidebar.transactions",
-      path: "/transactions",
-      icon: <PiHandCoinsFill />,
-    },
-    { i18nKey: "sidebar.budget", path: "/budget", icon: <IoWalletOutline /> },
-    {
-      i18nKey: "sidebar.expense",
-      path: "/expense",
-      icon: <FaMoneyBillTrendUp />,
-    },
-    { i18nKey: "sidebar.income", path: "/income", icon: <FaDollarSign /> },
-    { i18nKey: "sidebar.analytics", path: "/analytics", icon: <FaChartBar /> },
-  ];
+  const links = useSidebarLinks();
 
   return (
     <>
@@ -55,13 +31,13 @@ const Sidebar = ({ isOpenMenu, handleOpenMenu }) => {
             <FaXmark />
           </button>
 
-          <Logo showTitle className="m-auto w-30" />
+          <Logo showTitle className="m-auto w-25" />
           <div className="flex-between mt-8 flex-1 flex-col">
-            <ul className="border-top w-full flex-1 space-y-3 pt-5">
+            <ul className="border-top w-full flex-1 space-y-2 pt-5">
               {links.map((link, index) => (
                 <li key={index} onClick={() => handleOpenMenu(false)}>
                   <NavLink className="link" to={link.path}>
-                    <span className="text-2xl">{link.icon}</span>
+                    <span className="text-2xl">{<link.icon />}</span>
                     <Text tagElement="span" i18nKey={link.i18nKey} />
                   </NavLink>
                 </li>
@@ -73,6 +49,7 @@ const Sidebar = ({ isOpenMenu, handleOpenMenu }) => {
               type="button"
               onClick={() =>
                 openModal("logoutConfirm", {
+                  variant: "logout",
                   onConfirm: logoutUser,
                 })
               }

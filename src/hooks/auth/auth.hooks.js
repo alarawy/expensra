@@ -5,8 +5,8 @@ import {
     logoutUser,
     getCurrentUser,
     verifyUser,
+    resendOTP,
 } from "../../services/auth.service.js";
-
 
 
 export const AUTH_QUERY_KEY = ["user"]
@@ -86,6 +86,11 @@ export const useLogoutUser = () => {
     });
 };
 
+export const useResendOTP = ()=> {
+    return useMutation({
+        mutationFn: resendOTP
+    })
+}
 
 export const useGetCurrentUser = () => {
     return useQuery({

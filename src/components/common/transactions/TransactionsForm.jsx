@@ -13,12 +13,12 @@ const TransactionsForm = ({ variant }) => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     onSubmit,
     onCancel,
     isEdit,
     isAdding,
-    isEditing,
+    isEditing
   } = useTransactionForm(variant);
 
   return (
@@ -85,9 +85,9 @@ const TransactionsForm = ({ variant }) => {
         />
 
         <div className="flex-end mt-10 gap-5">
-          {isEdit && (
+          {(isEdit || isDirty) && (
             <FormButton
-              type="reset"
+              type="button"
               i18nKey="common.cancel"
               className="text-accent bg-transparent"
               onClick={onCancel}

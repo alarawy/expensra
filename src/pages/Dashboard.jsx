@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <Section>
       <Heading />
-      {/* <ActivityDateRange /> */}
+      <ActivityDateRange />
       <SummaryCards />
       <Charts />
       <RecentTransactions />
