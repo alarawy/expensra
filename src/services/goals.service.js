@@ -1,6 +1,5 @@
 import api from './axios'
 
-
 export const getGoals = async ()=> {
     const response = await api.get('/api/goals')
     return response.data
@@ -30,7 +29,6 @@ export const addDeposit = async ({id, data}) => {
     const response = await api.post(`/api/goals/${id}/deposit`, data)
     return response.data
 }
-
 
 export const remainingBalance = async (data)=> {
     const response = await api.post("/api/monthly-surplus", data);

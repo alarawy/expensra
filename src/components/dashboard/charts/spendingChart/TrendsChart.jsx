@@ -1,3 +1,4 @@
+import { formatDate } from "date-fns/format";
 import { useTranslation } from "react-i18next";
 import {
   Area,
@@ -11,13 +12,15 @@ import {
 const TrendsChart = ({ data }) => {
   const { t, i18n } = useTranslation();
   const dir = i18n.language === "ar";
-  
+  const formattedData = data.map((d) => ({
+    ...d,
+    date: formatDate(d.date, "dd/MM"),
+  }));
   return (
     <AreaChart
-      data={data}
+      data={formattedData}
       width="100%"
       height="100%"
-      style={{maxHeight: "500px"}}
       responsive
     >
       <CartesianGrid strokeDasharray="3 3" stroke="#3990ab" reversed={dir} />

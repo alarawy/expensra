@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocalStorageState } from "../index";
-import { AppModeContext } from "./useAppMode";
+import { AppModeContext } from "./useAppMode.hooks";
 
 const AppModeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(window.matchMedia("(prefers-color-scheme: dark)").matches, "isDark");

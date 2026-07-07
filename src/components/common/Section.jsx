@@ -1,7 +1,7 @@
 
 const Section = ({className, children, ...props}) => {
   return (
-    <section className={`m-0 space-y-3 space-x-3 ${className}`} {...props} >
+    <section className={`m-0 ${className}`} {...props} >
         {children}
     </section>
   )

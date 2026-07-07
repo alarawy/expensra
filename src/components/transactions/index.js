@@ -1,4 +1,7 @@
 export { default as TransactionsFilters } from './TransactionsFilters'
-export { default as SelectType } from './SelectType'
+export { default as TransactionsHeader } from './TransactionsHeader'
+export { default as TransactionCategoryFilter } from './TransactionCategoryFilter'
 export { default as SearchInput } from './SearchInput'
 export { default as TransactionRow } from './TransactionRow'
+export { default as TransactionsButton } from './TransactionsButton'
+export { default as TransactionTabs } from './TransactionTabs'

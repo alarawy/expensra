@@ -1,4 +1,4 @@
-import formatDate from "../formats/formatDate";
+import { formatDate } from "../index";
 
 export const formatGoalPayload = (data) => ({
   ...data,

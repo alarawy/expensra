@@ -21,6 +21,7 @@ const TransactionActions = ({ variant, id, onDelete }) => {
       setSearchParams({ budgetId: id });
     } else {
       setSearchParams({ transactionId: id });
+      openModal("addTransaction");
     }
     if (variant != "goals") {
       const el = document.querySelector(".main");
@@ -39,7 +40,7 @@ const TransactionActions = ({ variant, id, onDelete }) => {
           type="button"
           title={t("common.add")}
           onClick={() => {
-            openModal("addDeposit");
+            openModal("deposit");
             setSearchParams({ goalId: id });
           }}
         >

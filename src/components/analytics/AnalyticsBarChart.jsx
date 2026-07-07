@@ -14,7 +14,7 @@ const AnalyticsBarChart = ({ data }) => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === "ar";
   return (
-    <div className="p-2 m-0 md:p-10 rounded-xl bg-primary">
+    <div className="flex-3 card">
       <div className="flex-center gap-2 mb-10">
         <Text tagElement="h4" i18nKey="sidebar.income" className="text-xl font-bold" />
         <span className="font-bold text-accent">&</span>
@@ -23,9 +23,9 @@ const AnalyticsBarChart = ({ data }) => {
       <BarChart
         style={{
           width: "100%",
-          maxHeight: "50vh",
+          maxHeight: "300px",
           aspectRatio: 1.618,
-          paddingBottom: "20px"
+          // paddingBottom: "20px"
         }}
         responsive
         data={data}

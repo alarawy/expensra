@@ -3,15 +3,16 @@ import {
   getTotalExpenses,
   getTotalIncomes,
 } from "../../services/financialSummary.service";
+import { transactionKeys } from "../../utils";
 
-export const useFinancialSummary = (month = new Date().getMonth() + 1) => {
+export const useFinancialSummary = ({month}) => {
   return useQuery({
-    queryKey: ["financial-summary", month],
+    queryKey: transactionKeys.financial(month),
     
     queryFn: async () => {
       const [totalExpenses, totalIncomes] = await Promise.all([
-        getTotalExpenses(month),
-        getTotalIncomes(month),
+        getTotalExpenses({month}),
+        getTotalIncomes({month}),
       ]);
       return {
         totalExpenses,

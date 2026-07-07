@@ -1,22 +1,3 @@
-// export const calculateAverage = (data) => {
-//   if (!data?.length) {
-//     return {
-//       income: 0,
-//       expenses: 0,
-//       savings: 0,
-//     };
-//   }
-
-//   return {
-//     income:
-//       data.reduce((sum, item) => sum + Number(item.income), 0) / data.length,
-//     expenses:
-//       data.reduce((sum, item) => sum + Number(item.expenses), 0) / data.length,
-//     savings:
-//       data.reduce((sum, item) => sum + Number(item.savings), 0) / data.length,
-//   };
-// };
-
 export const calculateAverage = (data) => {
   const validData = data.filter((item) => item.income > 0 || item.expenses > 0);
 
@@ -120,44 +101,6 @@ export const calculateComparison = (data) => {
   };
 };
 
-// export const calculateInsights = (data) => {
-//   const bestSavingMonth = data.reduce((prev, current) =>
-//     current.savings > prev.savings ? current : prev,
-//   ).month;
-
-//   const expenseCategories = {};
-//   const incomeCategories = {};
-
-//   data.forEach((month) => {
-//     month.categoryExpenses?.forEach((category) => {
-//       expenseCategories[category.category_name] =
-//         (expenseCategories[category.category_name] || 0) +
-//         Number(category.expenses);
-//     });
-
-//     month.categoryIncome?.forEach((category) => {
-//       incomeCategories[category.category_name] =
-//         (incomeCategories[category.category_name] || 0) +
-//         Number(category.total_incomes);
-//     });
-//   });
-
-//   const highestExpenseCategory = Object.entries(expenseCategories).reduce(
-//     (max, current) => (current[1] > max[1] ? current : max),
-//     ["", 0],
-//   )[0];
-
-//   const highestIncomeCategory = Object.entries(incomeCategories).reduce(
-//     (max, current) => (current[1] > max[1] ? current : max),
-//     ["", 0],
-//   )[0];
-
-//   return {
-//     bestSavingMonth,
-//     highestExpenseCategory,
-//     highestIncomeCategory,
-//   };
-// };
 export const calculateInsights = (data) => {
   if (!data?.length) {
     return {

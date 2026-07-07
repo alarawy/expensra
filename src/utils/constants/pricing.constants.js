@@ -10,7 +10,6 @@ export const freeFeatures = [
 export const proFeatures = [
   "includes",
   "advancedAnalytics",
-  // "financialInsights",
   "exportReports",
   "recurringTransactions",
   "prioritySupport",

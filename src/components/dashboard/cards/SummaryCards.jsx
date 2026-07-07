@@ -7,27 +7,37 @@ import {
 import { useMonthlySummary } from "../../../hooks";
 
 const SummaryCards = () => {
-  const { totalIncomes, totalExpenses, totalBalance, isPending } =
-    useMonthlySummary();
+  const {
+    totalIncomes,
+    totalExpenses,
+    totalBalance,
+    balanceChange,
+    isPending,
+  } = useMonthlySummary();
   return (
-    <div className="border-bottom m-0 flex flex-wrap gap-8 py-10">
+    <div className="border-bottom m-0 flex flex-wrap gap-5 py-4">
       <SummaryCard
-        i18nKey="dashboard.totalBalance"
+        i18nKey="dashboard.remainingBalance"
         amount={totalBalance}
+        percentageChange={balanceChange}
         isPending={isPending}
       >
         <FaBitcoin />
       </SummaryCard>
       <SummaryCard
+        variant="income"
         i18nKey="income.totalIncome"
         amount={totalIncomes}
+        percentageChange={balanceChange}
         isPending={isPending}
       >
         <FaArrowTrendDown />
       </SummaryCard>
       <SummaryCard
+        variant="expense"
         i18nKey="expenses.totalExpenses"
         amount={totalExpenses}
+        percentageChange={balanceChange}
         isPending={isPending}
       >
         <FaArrowTrendUp />

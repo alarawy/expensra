@@ -31,7 +31,7 @@ const FinancialInsights = ({ comparison, insights }) => {
   });
 
   return (
-    <div className="border-top mt-5 p-3 pt-5">
+    <div className="flex-1">
       <Text
         tagElement="h2"
         i18nKey="analysis.financialInsights"
@@ -44,7 +44,7 @@ const FinancialInsights = ({ comparison, insights }) => {
           className="text-secondary text-center pt-4 text-bold text-2xl md:text-4xl"
         />
       ) : (
-        <div className="space-y-1 md:space-y-2">
+        <div className="space-y-1">
           <FinancialInsightsItem type="income" icon={<FaArrowTrendUp />}>
             {incomeMessage}
           </FinancialInsightsItem>

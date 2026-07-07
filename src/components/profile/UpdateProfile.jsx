@@ -73,13 +73,7 @@ const UpdateProfile = () => {
             <CiUser />
           </Input>
         </div>
-        <Input
-          i18nKey="auth.email"
-          id="email"
-          // value={data.email}
-          register={register}
-          readOnly
-        >
+        <Input i18nKey="auth.email" id="email" register={register} readOnly>
           <CiMail />
         </Input>
         <div className="flex-center mt-5 gap-1 md:gap-5">
@@ -97,15 +91,19 @@ const UpdateProfile = () => {
           />
         </div>
         <div className="flex-end mt-5 w-fit gap-3 ltr:ml-auto rtl:mr-auto">
-          <FormButton
-            type="reset"
-            i18nKey="common.reset"
-            className="min-w-25 bg-transparent text-(--accent) hover:text-(--accent-hover)"
-          />
+          {isDirty && (
+            <FormButton
+              type="reset"
+              i18nKey="common.reset"
+              onClick={()=> reset()}
+              className="min-w-25 bg-transparent text-(--accent) hover:text-(--accent-hover)"
+            />
+          )}
           <FormButton
             disabled={!isDirty}
             isPending={!isDirty || isPending}
             i18nKey={!isDirty ? "common.edit" : "common.update"}
+            className="px-4"
           />
         </div>
       </form>

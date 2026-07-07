@@ -1,23 +1,41 @@
+import { useSearchParams } from "react-router-dom";
 import { useGetCurrentUser } from "../../hooks";
 import { Text } from "../common";
+import { DateRangeToggle } from "./index";
+const currentMonth = new Date().getMonth() + 1;
+
+const monthLabels = {
+  [currentMonth]: "thisMonth",
+  [currentMonth - 1]: "lastMonth",
+  [currentMonth - 2]: "monthBeforeLast",
+};
 
 const Heading = () => {
-  const {
-    data: { first_name },
-  } = useGetCurrentUser();
+  const { data } = useGetCurrentUser();
+  const [searchParams] = useSearchParams();
+
+  const selectedMonth = Number(searchParams.get("month")) || currentMonth;
   return (
-    <div className="border-bottom m-0 space-y-3 pb-3">
+    <div className="border-bottom m-0">
       <Text
         tagElement="h1"
         className="text-primary text-lg font-bold md:text-2xl"
         i18nKey="dashboard.welcome"
-        values={{ name: first_name }}
+        values={{ name: data.first_name }}
       />
-      <Text
-        tagElement="p"
-        className="text-accent text-sm"
-        i18nKey="expenses.monthlyBreakdown"
-      />
+      <div className="flex m-0 flex-col space-y-2 md:flex-row">
+        <Text
+          tagElement="p"
+          i18nKey="dashboard.subtitle"
+          className="text-secondary flex-start"
+        >
+          <Text
+            i18nKey={`dates.${monthLabels[selectedMonth]}`}
+            className="text-accent"
+          />
+        </Text>
+        <DateRangeToggle />
+      </div>
     </div>
   );
 };

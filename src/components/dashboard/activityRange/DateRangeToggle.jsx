@@ -37,7 +37,7 @@ const DateRangeToggle = () => {
   return (
     <ul
       role="tablist"
-      className="bg-primary flex-end w-fit whitespace-nowrap rounded-lg ltr:ml-auto rtl:mr-auto"
+      className="bg-primary flex-end h-fit whitespace-nowrap rounded-lg ltr:ml-auto rtl:mr-auto"
     >
       {MONTH_OPTIONS.map((option) => (
         <Text
@@ -47,7 +47,7 @@ const DateRangeToggle = () => {
           i18nKey={`dates.${option.label}`}
           aria-selected={selectedMonth === option.value}
           tabIndex={0}
-          className={`cursor-pointer rounded-lg px-3 py-2 transition-colors  duration-200 ease-in-out ${
+          className={`cursor-pointer rounded-lg m-0 px-3 py-2 text-xs md:text-base transition-colors  duration-200 ease-in-out ${
             selectedMonth === option.value
               ? "bg-accent text-primary"
               : "text-secondary"

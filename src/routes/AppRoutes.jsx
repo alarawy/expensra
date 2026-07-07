@@ -16,8 +16,6 @@ const PageNotFound = lazy(() => import("../pages/PageNotFound"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Transactions = lazy(() => import("../pages/Transactions"));
-const Expense = lazy(() => import("../pages/Expense"));
-const Income = lazy(() => import("../pages/Income"));
 const ResetPassword = lazy(() => import("../pages/ResetPassword"));
 const OTP = lazy(() => import("../pages/OTP"));
 const ChangePassword = lazy(() => import("../pages/ChangePassword"));
@@ -126,24 +124,6 @@ const AppRoutes = () => {
           element={
             <LazyLoad>
               <Goals />
-            </LazyLoad>
-          }
-        />
-
-        <Route
-          path="/expense"
-          element={
-            <LazyLoad>
-              <Expense />
-            </LazyLoad>
-          }
-        />
-
-        <Route
-          path="/income"
-          element={
-            <LazyLoad>
-              <Income />
             </LazyLoad>
           }
         />

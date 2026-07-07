@@ -16,18 +16,18 @@ const CategoryPieChart = ({ data }) => {
   );
 
   return (
-    <PieChart responsive width="100%" height={500} >
+    <PieChart responsive width="100%" height={340} >
       <Pie
         data={translatedData}
         dataKey="total"
         nameKey="categoryName"
-        innerRadius={70}
-        outerRadius={100}
+        innerRadius={60}
+        outerRadius={85}
         paddingAngle={2}
         stroke="none"
       >
         <Label position="center" fill={`${isDarkMode ? "#9ca3af" : "#475569"}`}>
-          {formatPrice(total)}
+          {formatPrice(total, i18n.language)}
         </Label>
       </Pie>
       <Legend content={<CustomLegend />} />

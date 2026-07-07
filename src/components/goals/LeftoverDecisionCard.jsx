@@ -11,7 +11,7 @@ const LeftoverDecisionCard = () => {
   const isRTL = i18n.language === "ar";
 
   return (
-    <div className="card m-0 mb-8 border-0">
+    <div className="card m-0 mb-5 border-0">
       <div className="flex-start gap-1">
         <FaArrowCircleRight
           className={`text-accent ${isRTL ? "rotate-180" : ""} `}
@@ -19,18 +19,18 @@ const LeftoverDecisionCard = () => {
         <Text
           tagElement="p"
           i18nKey="goals.leftoverLabel"
-          className="text-secondary"
+          className="text-secondary text-sm"
         >
-          <strong>{formatPrice(totalBalance)}</strong>
+          <strong>{formatPrice(totalBalance, i18n.language)}</strong>
         </Text>
       </div>
       <Text
         tagElement="h3"
         i18nKey="goals.leftoverQuestion"
-        className="text-2xl font-semibold"
+        className="text-xl font-semibold"
       />
 
-      <div className="mt-4 space-y-4">
+      <div className="mt-3 flex flex-col md:flex-row gap-5">
         <RollOverOption />
         <AddToSavingsOption />
       </div>

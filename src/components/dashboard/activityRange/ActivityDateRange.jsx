@@ -16,7 +16,7 @@ const ActivityDateRange = () => {
   const selectedMonth = Number(searchParams.get("month")) || currentMonth;
 
   return (
-    <div className="m-0 flex flex-col gap-y-5 py-4 md:flex-row md:justify-between md:gap-y-0">
+    <div className="m-0 flex flex-col gap-y-5 pt-2 md:flex-row md:justify-between md:gap-y-0">
       <Text
         tagElement="p"
         i18nKey="dashboard.activityLast"

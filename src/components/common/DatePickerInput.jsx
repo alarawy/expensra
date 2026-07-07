@@ -5,8 +5,16 @@ import { arSA } from "react-day-picker/locale";
 import { useTranslation } from "react-i18next";
 import { Input } from "./index";
 import { useOutsideClick } from "../../hooks";
+import { MdOutlineCalendarMonth } from "../../assets/icons/icons";
 
-const DatePickerInput = ({i18nKey="dates.date", disableNavigation = true, value, onChange, error }) => {
+const DatePickerInput = ({
+  i18nKey = "dates.date",
+  placeholderKey = "selectDate",
+  disableNavigation = true,
+  value,
+  onChange,
+  error,
+}) => {
   const { i18n } = useTranslation();
   const locale = i18n.language === "ar" ? arSA : undefined;
 
@@ -15,20 +23,22 @@ const DatePickerInput = ({i18nKey="dates.date", disableNavigation = true, value,
 
   const formattedValue = value ? format(value, "dd/MM/yyyy") : "";
   return (
-    <div className="relative my-3 w-full" ref={ref}>
+    <div className="relative flex-1" ref={ref}>
       <Input
         id="transaction_date"
         readOnly
         i18nKey={i18nKey}
-        placeholderKey={"dates.dateFormat"}
+        placeholderKey={`dates.${placeholderKey}`}
         value={formattedValue}
         onClick={() => setOpen((prev) => !prev)}
         error={error}
-      />
+      >
+        <MdOutlineCalendarMonth />
+      </Input>
 
       {/* Calendar */}
       {open && (
-        <div className="absolute z-50 top-1">
+        <div className="absolute top-1 right-0 z-50">
           <DayPicker
             mode="single"
             selected={value}

@@ -6,7 +6,7 @@ const CustomLegend = ({ payload }) => {
   );
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 max-h-35 overflow-auto">
       {sortedPayload.map((entry, index) => {
         const percentage = ((entry.payload.total / total) * 100).toFixed(1);
 

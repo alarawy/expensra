@@ -1,21 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CategoryList, Input } from "./index";
-import {
-  useCategoriesData,
-  useGetCurrentUser,
-  useOutsideClick,
-} from "../../hooks";
+import { useGetCurrentUser, useOutsideClick } from "../../hooks";
 import { CURRENCIES, EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "../../utils";
+import { FaTags, MdOutlineCategory } from "../../assets/icons/icons";
 
 const SelectInput = ({ variant, value, onSelect, error }) => {
   const { data: currentUser } = useGetCurrentUser();
   const isNormalUser = currentUser?.system_role === "normal_user";
-  const { data: categoriesBudget = [] } = useCategoriesData();
-  const budgets = categoriesBudget.map((budget) => ({
-    id: budget.name,
-    labelKey: `categories.${budget.categoryName.toLowerCase()}`,
-  }));
 
   const categories =
     variant === "income"
@@ -24,11 +16,9 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
         : INCOME_CATEGORIES
       : variant === "currency"
         ? CURRENCIES
-        : variant === "budget"
-          ? budgets
-          : isNormalUser
-            ? EXPENSE_CATEGORIES.slice(0, 5)
-            : EXPENSE_CATEGORIES;
+        : isNormalUser
+          ? EXPENSE_CATEGORIES.slice(0, 5)
+          : EXPENSE_CATEGORIES;
 
   const { t } = useTranslation();
   const [isFocused, setIsFocused] = useState(false);
@@ -54,19 +44,19 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
 
   const i18nKey =
     variant === "income"
-      ? "transactions.source"
+      ? "categories.sourceName"
       : variant === "currency"
         ? "profile.currency"
         : variant === "budget"
           ? "budget.title"
-          : "transactions.category";
+          : "categories.categoryName";
 
   const placeholderKey =
     variant === "income"
-      ? "transactions.incomePlaceholder"
+      ? "categories.incomePlaceholder"
       : variant === "currency"
         ? "profile.currency"
-        : "transactions.categoryPlaceholder";
+        : "categories.categoryPlaceholder";
 
   const selectedCategory = categories.find((cat) => cat.id === value);
 
@@ -91,7 +81,9 @@ const SelectInput = ({ variant, value, onSelect, error }) => {
         error={error}
         onChange={(e) => onSelect(e.target.value)}
         className="flex-row-reverse"
-      />
+      >
+        <FaTags size={18} />
+      </Input>
 
       {isFocused && (displayValue || filtered.length > 0) && (
         <CategoryList

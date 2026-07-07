@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   useDeleteBudget,
   useDeleteGoal,
@@ -11,6 +12,7 @@ import { TableRow } from "../index";
 import { TransactionActions } from "./index";
 
 const TransactionsTableRow = ({ data, variant }) => {
+  const { i18n} = useTranslation()
   const { mutate: deleteTransaction } = useDeleteTransaction();
   const { mutate: deleteBudget } = useDeleteBudget();
   const { mutate: deleteGoal } = useDeleteGoal();
@@ -18,7 +20,7 @@ const TransactionsTableRow = ({ data, variant }) => {
   return (
     <>
       {data?.map((item, index) => {
-        const rowData = transformTableRowData(item, variant);
+        const rowData = transformTableRowData(item, variant, i18n.language);
 
         if (variant === "budget") {
           return (
@@ -42,10 +44,6 @@ const TransactionsTableRow = ({ data, variant }) => {
               />
             </GoalsRow>
           );
-        }
-
-        if (variant === "transactions") {
-          return <TransactionRow key={index} item={rowData} />;
         }
 
         return (

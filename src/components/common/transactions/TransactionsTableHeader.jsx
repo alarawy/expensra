@@ -2,7 +2,7 @@ import { Text } from "../index";
 
 const TransactionsTableHeader = ({ tableHeader }) => {
   return (
-    <div className="bg-accent mt-8 flex rounded-lg p-3 text-white">
+    <div className="bg-accent mt-5 flex rounded-lg p-3 text-primary">
       {tableHeader.map((header, index) => {
         const alignment = header === "actions" ? "text-end" : "text-start";
         return (

@@ -14,8 +14,8 @@ const GoalsRow = ({ item, children }) => {
       <p className="flex-1">
         {formatTranslatedText(item.goalName, "categories", t, i18n)}
       </p>
-      <p className="flex-1">{formatPrice(item.savedAmount)}</p>
-      <p className="flex-1">{formatPrice(item.targetAmount)}</p>
+      <p className="flex-1">{formatPrice(item.savedAmount, i18n.language)}</p>
+      <p className="flex-1">{formatPrice(item.targetAmount, i18n.language)}</p>
       <p className="flex-1">{item.deadline}</p>
       <ProgressBar percentage={percentage} variant="goals" />
       {children}

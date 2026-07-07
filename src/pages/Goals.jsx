@@ -1,6 +1,7 @@
 import { LeftoverDecisionCard, SavingsProgressCard } from "../components/goals";
 import {
   Loading,
+  PageHeader,
   Section,
   Text,
   TransactionsTable,
@@ -14,11 +15,7 @@ const Goals = () => {
   if (isPending) return <Loading />;
   return (
     <Section>
-      <Text
-        tagElement="h1"
-        i18nKey="sidebar.goals"
-        className="text-accent mb-5 text-2xl font-bold md:text-4xl"
-      />
+      <PageHeader variant="goals" />
       <LeftoverDecisionCard />
       <SavingsProgressCard />
       <TransactionsTable data={goalsData} variant="goals" />

@@ -1,14 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { transactionKeys } from "../../utils";
 import {
   getAllTransactions,
   addTransaction,
   editTransaction,
   deleteTransaction,
-  GetTransaction,
+  getTransaction,
   getMonthlyTransactions,
 } from "../../services/transactions.service";
 
-import { transactionKeys } from "../../utils";
+const month = new Date().getMonth() + 1;
 
 export const useGetAllTransactions = () => {
   return useQuery({
@@ -19,141 +20,149 @@ export const useGetAllTransactions = () => {
   });
 };
 
-export const useGetMonthlyTransactions = (month) => {
+export const useGetMonthlyTransactions = ({ month }) => {
   return useQuery({
     queryKey: transactionKeys.monthly(month),
-    queryFn: () => getMonthlyTransactions(month),
+    queryFn: () => getMonthlyTransactions({ month }),
     enabled: !!month,
+    retry: false,
     staleTime: 5 * 60 * 1000,
-    retry: false
   });
 };
 
 export const useGetTransaction = (id) => {
   return useQuery({
     queryKey: transactionKeys.detail(id),
-    queryFn: () => GetTransaction(id),
+    queryFn: () => getTransaction(id),
     enabled: !!id,
   });
 };
 
-export const useAddTransaction = (month) => {
+export const useAddTransaction = () => {
   const queryClient = useQueryClient();
-  const KEY = transactionKeys.monthly(month);
-
   return useMutation({
     mutationFn: addTransaction,
-
     onMutate: async (newTransaction) => {
-      await queryClient.cancelQueries({ queryKey: KEY });
-
-      const previousData = queryClient.getQueryData(KEY);
-
+      const key = transactionKeys.monthly(month);
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
       const optimisticTransaction = {
         ...newTransaction,
         id: crypto.randomUUID(),
       };
-
-      queryClient.setQueryData(KEY, (old) => {
-        if (!old?.transactions) return old;
-
-        return {
-          ...old,
-          transactions: [optimisticTransaction, ...old.transactions],
-        };
-      });
-
+      queryClient.setQueryData(key, (old) => ({
+        ...old,
+        transactions: [optimisticTransaction, ...(old?.transactions ?? [])],
+      }));
       return { previousData };
     },
-
-    onError: (_err, _vars, context) => {
+    onError: (err, _vars, context) => {
+      console.log(err);
       if (context?.previousData) {
-        queryClient.setQueryData(KEY, context.previousData);
+        queryClient.setQueryData(
+          transactionKeys.monthly(month),
+          context.previousData,
+        );
       }
     },
-
-    onSuccess: () => {
-      // ❌ no refetch for transactions → avoids lag
+    onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: transactionKeys.financialSummary,
+        queryKey: transactionKeys.monthly(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.financial(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.budgets,
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.all,
       });
     },
   });
 };
 
-export const useEditTransaction = (month) => {
+export const useEditTransaction = () => {
   const queryClient = useQueryClient();
-  const KEY = transactionKeys.monthly(month);
-
   return useMutation({
     mutationFn: editTransaction,
-
     onMutate: async (updated) => {
-      await queryClient.cancelQueries({ queryKey: KEY });
-
-      const previousData = queryClient.getQueryData(KEY);
-
-      queryClient.setQueryData(KEY, (old) => {
-        if (!old?.transactions) return old;
-
-        return {
-          ...old,
-          transactions: old.transactions.map((t) =>
-            t.id === updated.id ? { ...t, ...updated } : t,
-          ),
-        };
-      });
-
+      const key = transactionKeys.monthly(month);
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
+      queryClient.setQueryData(key, (old) => ({
+        ...old,
+        transactions:
+          old?.transactions?.map((t) =>
+            t.id === updated.id
+              ? {
+                  ...t,
+                  ...updated.data,
+                }
+              : t,
+          ) ?? [],
+      }));
       return { previousData };
     },
-
     onError: (_err, _vars, context) => {
       if (context?.previousData) {
-        queryClient.setQueryData(KEY, context.previousData);
+        queryClient.setQueryData(
+          transactionKeys.monthly(month),
+          context.previousData,
+        );
       }
     },
-
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: transactionKeys.financialSummary,
+        queryKey: transactionKeys.monthly(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.financial(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.budgets,
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.all,
       });
     },
   });
 };
 
-export const useDeleteTransaction = (month) => {
+export const useDeleteTransaction = () => {
   const queryClient = useQueryClient();
-  const KEY = transactionKeys.monthly(month);
-
   return useMutation({
     mutationFn: deleteTransaction,
-
     onMutate: async (id) => {
-      await queryClient.cancelQueries({ queryKey: KEY });
-
-      const previousData = queryClient.getQueryData(KEY);
-
-      queryClient.setQueryData(KEY, (old) => {
-        if (!old?.transactions) return old;
-
-        return {
-          ...old,
-          transactions: old.transactions.filter((t) => t.id !== id),
-        };
-      });
-
+      const key = transactionKeys.monthly(month);
+      await queryClient.cancelQueries({ queryKey: key });
+      const previousData = queryClient.getQueryData(key);
+      queryClient.setQueryData(key, (old) => ({
+        ...old,
+        transactions: old?.transactions?.filter((t) => t.id !== id) ?? [],
+      }));
       return { previousData };
     },
-
     onError: (_err, _vars, context) => {
       if (context?.previousData) {
-        queryClient.setQueryData(KEY, context.previousData);
+        queryClient.setQueryData(
+          transactionKeys.monthly(month),
+          context.previousData,
+        );
       }
     },
-
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: transactionKeys.financialSummary,
+        queryKey: transactionKeys.monthly(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.financial(month),
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.budgets,
+      });
+      queryClient.invalidateQueries({
+        queryKey: transactionKeys.all,
       });
     },
   });

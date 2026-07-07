@@ -1,34 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import { AddBudgetForm } from "../components/budget";
+import { BudgetForm } from "../components/budget";
 import {
   Loading,
+  PageHeader,
   Pricing,
   Section,
   Text,
   TransactionsTable,
 } from "../components/common";
-import { useGetCurrentUser } from "../hooks";
-import { useGetBudgets } from "../hooks/budgets/budgets.hook";
+import { useGetBudgets, useGetCurrentUser } from "../hooks";
 import { normalizeData } from "../utils";
 
 const Budget = () => {
   const { data, isPending } = useGetCurrentUser();
-  const { data: budget } = useGetBudgets();
+  const { data: budget, isPending: isData } = useGetBudgets();
   const budgetData = normalizeData(budget?.Budgets);
 
   const navigate = useNavigate();
-  if (isPending) return <Loading />;
+  if (isPending || isData) return <Loading />;
   return (
     <Section>
       {data?.system_role === "normal_user" && (
         <Pricing onClick={() => navigate(-1)} />
       )}
-      <Text
-        tagElement="h1"
-        i18nKey="sidebar.budget"
-        className="text-accent mb-5 text-2xl font-bold md:text-4xl"
-      />
-      <AddBudgetForm />
+      <PageHeader variant="budget" />
+      <BudgetForm />
       <TransactionsTable data={budgetData} variant="budget" />
     </Section>
   );

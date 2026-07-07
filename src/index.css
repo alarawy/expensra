@@ -142,7 +142,7 @@ select:-webkit-autofill {
     @apply absolute z-20 row-span-full flex h-full w-[65%] flex-col justify-between border-r-2 border-(--border-color) bg-(--bg-primary) p-5 shadow-2xl transition-all duration-300 ease-linear sm:w-[50%] lg:static lg:col-span-1 lg:w-full;
   }
   .main {
-    @apply relative col-span-full col-start-1 row-span-full row-start-2 overflow-auto bg-(--bg-secondary) p-5 text-(--text-primary) md:p-10 lg:col-start-2;
+    @apply relative col-span-full col-start-1 row-span-full row-start-2 overflow-auto bg-(--bg-secondary) p-5 text-(--text-primary) lg:col-start-2;
   }
 
   /* ===== Links ===== */
@@ -291,7 +291,7 @@ select:-webkit-autofill {
 
   /* ===== Cards ===== */
   .card {
-    @apply min-w-50 flex-1 space-y-2 rounded-xl bg-(--bg-primary) p-3 shadow-md transition-all duration-300 md:p-6;
+    @apply min-w-50 flex-1 space-y-2 rounded-xl bg-(--bg-primary) p-2 shadow-md transition-all duration-300 md:p-5;
   }
 
   .card:hover {

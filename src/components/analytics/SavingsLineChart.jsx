@@ -15,17 +15,17 @@ const SavingsLineChart = ({ data }) => {
   const isRTL = i18n.language === "ar";
 
   return (
-    <div className="bg-primary card m-0 w-full flex-1 ltr:pl-0 rtl:pr-0">
-      <div className="flex-start md:text-md m-0 gap-1 truncate p-4 pt-0 text-sm whitespace-nowrap lg:text-2xl">
+    <div className="card flex-around flex-2 flex-col overflow-hidden">
+      <div className="md:text-md mb-3 flex gap-1 truncate px-4 text-sm whitespace-nowrap lg:text-xl ltr:mr-auto rtl:ml-auto">
         <Text
           tagElement="h4"
           i18nKey="analysis.netSavingsTrend"
-          className="text-accent font-semibold"
+          className="text-accent text-start font-semibold"
         />
         <Text
-          tagElement="h4"
+          tagElement="h6"
           i18nKey="analysis.netSavingsDescription"
-          className="text-secondary"
+          className="text-secondary mt-3 text-xs"
         />
       </div>
 
@@ -33,7 +33,8 @@ const SavingsLineChart = ({ data }) => {
         responsive
         style={{
           width: "100%",
-          maxHeight: "200px",
+          maxHeight: "400px",
+          flex: 1,
           aspectRatio: 1.618,
         }}
         data={data}
@@ -47,7 +48,7 @@ const SavingsLineChart = ({ data }) => {
         <XAxis dataKey="month" reversed={isRTL} tick={{ fontSize: "14px" }} />
 
         <YAxis
-          width={60}
+          width={35}
           orientation={isRTL ? "right" : "left"}
           tick={{ textAnchor: "end", fontSize: "12px" }}
         />

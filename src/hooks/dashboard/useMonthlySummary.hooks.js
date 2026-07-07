@@ -6,22 +6,44 @@ export const useMonthlySummary = () => {
   const [searchParams] = useSearchParams();
 
   const month = Number(searchParams.get("month")) || currentMonth;
+  const prevMonth = month === 1 ? 12 : month - 1;
 
-  const { data, isPending } = useFinancialSummary({ month: month });
+  const { data: currentData, isPending: loadingCurrent } = useFinancialSummary({
+    month: month,
+  });
+
+  const { data: prevData, isPending: loadingPrev } = useFinancialSummary({
+    month: prevMonth,
+  });
 
   const totalIncomes =
-    data?.totalIncomes?.incomes_by_category?.total_incomes ?? 0;
+    currentData?.totalIncomes?.incomes_by_category?.total_incomes ?? 0;
 
-  const totalExpenses = data?.totalExpenses?.expenses?.total_expenses ?? 0;
+  const totalExpenses =
+    currentData?.totalExpenses?.expenses?.total_expenses ?? 0;
 
   const totalBalance = totalIncomes - totalExpenses;
 
+  const prevIncomes =
+    prevData?.totalIncomes?.incomes_by_category?.total_incomes ?? 0;
+
+  const prevExpenses = prevData?.totalExpenses?.expenses?.total_expenses ?? 0;
+
+  const prevBalance = prevIncomes - prevExpenses;
+
+  const balanceChange =
+    prevBalance === 0
+      ? 0
+      : Math.round(((totalBalance - prevBalance) / prevBalance) * 100);
+
   return {
-    data,
+    data: currentData,
     month,
     totalIncomes,
     totalExpenses,
     totalBalance,
-    isPending,
+    prevBalance,
+    balanceChange,
+    isPending: loadingCurrent || loadingPrev,
   };
 };

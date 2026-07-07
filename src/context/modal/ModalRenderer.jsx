@@ -1,6 +1,12 @@
-import { AddBudgetForm } from "../../components/budget";
-import { ConfirmDialog } from "../../components/common";
-import { AddDepositForm, AddGoalsForm, ConfirmCarryOverDialog, TransferToGoalDialog } from "../../components/goals";
+import { BudgetForm, BudgetWarningDialog } from "../../components/budget";
+import { ConfirmDialog, TransactionsForm } from "../../components/common";
+import {
+  DepositForm,
+  ConfirmCarryOverDialog,
+  TransferToGoalDialog,
+  GoalsForm,
+  DepositDialog,
+} from "../../components/goals";
 import { useModal } from "./modalContext";
 
 const ModalRenderer = () => {
@@ -9,6 +15,14 @@ const ModalRenderer = () => {
   if (!modal) return null;
 
   switch (modal.name) {
+    case "addTransaction":
+      return (
+        <TransactionsForm
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
     case "logoutConfirm":
       return (
         <ConfirmDialog
@@ -29,7 +43,15 @@ const ModalRenderer = () => {
 
     case "addBudget":
       return (
-        <AddBudgetForm
+        <BudgetForm
+          openDialog={true}
+          handleOpenDialog={closeModal}
+          {...modal.props}
+        />
+      );
+    case "budgetWarning":
+      return (
+        <BudgetWarningDialog
           openDialog={true}
           handleOpenDialog={closeModal}
           {...modal.props}
@@ -37,7 +59,7 @@ const ModalRenderer = () => {
       );
     case "addGoals":
       return (
-        <AddGoalsForm
+        <GoalsForm
           openDialog={true}
           handleOpenDialog={closeModal}
           {...modal.props}
@@ -51,9 +73,9 @@ const ModalRenderer = () => {
           {...modal.props}
         />
       );
-    case "addDeposit":
+    case "deposit":
       return (
-        <AddDepositForm
+        <DepositDialog
           openDialog={true}
           handleOpenDialog={closeModal}
           {...modal.props}

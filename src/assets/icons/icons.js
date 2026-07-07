@@ -5,6 +5,7 @@ export {
   FaChartPie,
   FaCheckCircle,
   FaArrowUp,
+  FaArrowDown,
   FaHome,
   FaLeaf,
   FaUsers,
@@ -22,8 +23,10 @@ export {
   FaCheck,
   FaTimes,
   FaSpinner,
+  FaTags,
   FaExclamation,
   FaKey,
+  FaExclamationTriangle,
 } from "react-icons/fa";
 export {
   FaXmark,
@@ -33,6 +36,8 @@ export {
   FaArrowTrendUp,
   FaArrowTrendDown,
   FaMoneyBillTransfer,
+  FaArrowDownUpAcrossLine,
+  FaPenToSquare,
 } from "react-icons/fa6";
 export { CiUser, CiLock, CiMail, CiBitcoin } from "react-icons/ci";
 export { GoGoal } from "react-icons/go";
@@ -44,6 +49,7 @@ export {
   MdDelete,
   MdOutlineCalendarMonth,
   MdOutlineSavings,
+  MdOutlineCategory,
   MdSavings,
   MdOutlineMailLock,
   MdFamilyRestroom,
@@ -54,8 +60,9 @@ export {
   IoArrowRedoSharp,
   IoCartOutline,
   IoPieChartOutline,
+  IoArrowRedo,
 } from "react-icons/io5";
 export { RiFundsBoxLine } from "react-icons/ri";
 export { TbCategoryPlus } from "react-icons/tb";
 export { BsExclamationOctagon } from "react-icons/bs";
-export { LuArrowDownToLine } from "react-icons/lu";
+export { LuArrowDownToLine, LuArrowDownUp } from "react-icons/lu";

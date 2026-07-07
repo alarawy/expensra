@@ -5,7 +5,7 @@ import TrendsChart from "./TrendsChart";
 const SpendingTrendsChart = () => {
   const { trendsData, isPending } = useTrendsData();
   return (
-    <div className="flex w-full flex-2 flex-col">
+    <div className="flex w-full md:items-stretch flex-2 flex-col">
       <Text
         tagElement="h5"
         i18nKey="expenses.spendingTrends"

@@ -1,6 +1,7 @@
 export { default as Heading } from './Heading'
 export { default as Charts } from './charts/Charts'
 export { default as ActivityDateRange } from './activityRange/ActivityDateRange'
+export { default as DateRangeToggle } from './activityRange/DateRangeToggle'
 export { default as SummaryCards } from './cards/SummaryCards'
 export { default as SpendingTrendsChart } from './charts/spendingChart/SpendingTrendsChart'
 export { default as SpendingByCategoryChart } from './charts/categoryChart/SpendingByCategoryChart'

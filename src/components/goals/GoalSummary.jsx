@@ -10,7 +10,7 @@ const GoalSummary = ({ goal }) => {
 
   return (
     <div className="border-default flex-around flex-wrap divide-gray-700 rounded-md p-4 md:divide-x">
-      <GoalCard title="spent" amount={goal?.saved_amount}>
+      <GoalCard title="saved" amount={goal?.saved_amount}>
         <IoWalletOutline />
       </GoalCard>
 

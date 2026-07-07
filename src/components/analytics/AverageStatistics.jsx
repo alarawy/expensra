@@ -11,7 +11,7 @@ import { AnalyticsCard } from "./index";
 
 const AverageStatistics = ({ average, highest }) => {
   return (
-    <div className="card w-full flex-1">
+    <div className="card flex-1">
       <Text
         tagElement="h2"
         i18nKey="analysis.averageStatistics"

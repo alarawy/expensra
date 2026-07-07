@@ -4,8 +4,10 @@ import { FormButton, Input, Overlay, ProgressBar, Text } from "../common";
 import { SelectGoalInput } from "./index";
 import { useGetGoal, useMonthlySummary, useTransferToGoal } from "../../hooks";
 import { formatPrice } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 const TransferToGoalDialog = ({ openDialog, handleOpenDialog }) => {
+  const { i18n } = useTranslation();
   const { totalBalance } = useMonthlySummary();
   const { goalId, register, handleSubmit, control, errors, onSubmit, close } =
     useTransferToGoal(handleOpenDialog);
@@ -24,7 +26,7 @@ const TransferToGoalDialog = ({ openDialog, handleOpenDialog }) => {
         >
           <Text
             tagElement="h2"
-            i18nKey="goals.addMoneyTitle"
+            i18nKey="goals.addMoneyToGoal"
             className="py-4 text-center text-2xl font-semibold"
           />
 
@@ -39,25 +41,12 @@ const TransferToGoalDialog = ({ openDialog, handleOpenDialog }) => {
           <Text
             tagElement="h5"
             i18nKey="goals.remainingBalance"
-            className="font-bold py-3 text-secondary"
+            className="text-secondary py-3 font-bold"
           >
             {" "}
-            {formatPrice(totalBalance)}
+            {formatPrice(totalBalance, i18n.language)}
           </Text>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="goal"
-              control={control}
-              rules={{ required: "auth.requiredField" }}
-              render={({ field }) => (
-                <SelectGoalInput
-                  value={field.value}
-                  onSelect={field.onChange}
-                  error={errors.goal}
-                />
-              )}
-            />
-
             <div className="flex-between text-secondary mt-5">
               <Text tagElement="h5" i18nKey="goals.savingProgressTitle" />
               <div className="flex-end pt-1 text-sm">
@@ -74,11 +63,25 @@ const TransferToGoalDialog = ({ openDialog, handleOpenDialog }) => {
               className="mb-5"
             />
 
+            <Controller
+              name="goal"
+              control={control}
+              rules={{ required: "auth.requiredField" }}
+              render={({ field }) => (
+                <SelectGoalInput
+                  value={field.value}
+                  onSelect={field.onChange}
+                  error={errors.goal}
+                />
+              )}
+            />
+
             <Input
               id="amount"
               register={register}
               rules={{ required: "auth.requiredField" }}
-              i18nKey="transactions.amount"
+              i18nKey="goals.depositAmount"
+              placeholderKey="goals.depositPlaceholder"
               error={errors.amount}
             />
 
