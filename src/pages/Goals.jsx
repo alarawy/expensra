@@ -7,18 +7,25 @@ import {
 } from "../components/common";
 import { useGetGoals } from "../hooks";
 import { normalizeData } from "../utils";
+import SEO from "../components/SEO";
 
 const Goals = () => {
   const { data, isPending } = useGetGoals();
   const goalsData = normalizeData(data?.goals);
   if (isPending) return <Loading />;
   return (
-    <Section>
-      <PageHeader variant="goals" />
-      <LeftoverDecisionCard />
-      <SavingsProgressCard />
-      <TransactionsTable data={goalsData} variant="goals" />
-    </Section>
+    <>
+      <SEO
+        title="Expensra | Goals"
+        description="Set financial goals, track your saving progress, and achieve your money targets with Expensra."
+      />
+      <Section>
+        <PageHeader variant="goals" />
+        <LeftoverDecisionCard />
+        <SavingsProgressCard />
+        <TransactionsTable data={goalsData} variant="goals" />
+      </Section>
+    </>
   );
 };
 

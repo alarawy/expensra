@@ -14,6 +14,7 @@ import {
 } from "../components/common";
 import { CiMail, CiLock } from "../assets/icons/icons";
 import { showToast } from "../utils";
+import SEO from "../components/SEO";
 
 const Login = () => {
   const {
@@ -31,8 +32,9 @@ const Login = () => {
         navigate("/dashboard", { replace: true });
         showToast("auth.successLogin", "success", t);
       },
-      onError: (error) => {showToast("auth.loginError", "error", t)
-        console.log(error)
+      onError: (error) => {
+        showToast("auth.loginError", "error", t);
+        console.log(error);
       },
     });
   };
@@ -40,28 +42,34 @@ const Login = () => {
   if (isPending) return <Loading />;
 
   return (
-    <Section className="bg-secondary h-dvh content-center px-3">
-      <form className="form" onSubmit={handleSubmit(onLogin)}>
-        <FormHeading text="auth.loginHeading" />
-        <EmailInput error={errors.email} register={register} />
-        <PasswordInput register={register} error={errors?.password} />
+    <>
+      <SEO
+        title="Login | Expensra"
+        description="Sign in to your Expensra account and manage your expenses, budgets, and financial goals."
+      />
+      <Section className="bg-secondary h-dvh content-center px-3">
+        <form className="form" onSubmit={handleSubmit(onLogin)}>
+          <FormHeading text="auth.loginHeading" />
+          <EmailInput error={errors.email} register={register} />
+          <PasswordInput register={register} error={errors?.password} />
 
-        <span className="text-accent flex-end px-2 pt-2 text-sm font-semibold">
-          <Text
-            tagElement={Link}
-            to="/forgot-password"
-            i18nKey="auth.forgotPassword"
-            className="mt-2 hover:underline"
+          <span className="text-accent flex-end px-2 pt-2 text-sm font-semibold">
+            <Text
+              tagElement={Link}
+              to="/forgot-password"
+              i18nKey="auth.forgotPassword"
+              className="mt-2 hover:underline"
+            />
+          </span>
+          <FormButton
+            i18nKey="auth.login"
+            isPending={isPending}
+            className="mt-10"
           />
-        </span>
-        <FormButton
-          i18nKey="auth.login"
-          isPending={isPending}
-          className="mt-10"
-        />
-        <AuthRedirect i18nKey="auth.noAccount" to="/signup" />
-      </form>
-    </Section>
+          <AuthRedirect i18nKey="auth.noAccount" to="/signup" />
+        </form>
+      </Section>
+    </>
   );
 };
 

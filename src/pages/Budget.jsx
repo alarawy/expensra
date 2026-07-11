@@ -9,6 +9,7 @@ import {
 } from "../components/common";
 import { useGetBudgets, useGetCurrentUser } from "../hooks";
 import { normalizeData } from "../utils";
+import SEO from "../components/SEO";
 
 const Budget = () => {
   const { data, isPending } = useGetCurrentUser();
@@ -18,14 +19,20 @@ const Budget = () => {
   const navigate = useNavigate();
   if (isPending || isData) return <Loading />;
   return (
-    <Section>
-      {data?.system_role === "normal_user" && (
-        <Pricing onClick={() => navigate(-1)} />
-      )}
-      <PageHeader variant="budget" />
-      <BudgetForm />
-      <TransactionsTable data={budgetData} variant="budget" />
-    </Section>
+    <>
+      <SEO
+        title="Expensra | Budgets"
+        description="Create and manage budgets for different categories and track your spending progress to stay within limits."
+      />
+      <Section>
+        {data?.system_role === "normal_user" && (
+          <Pricing onClick={() => navigate(-1)} />
+        )}
+        <PageHeader variant="budget" />
+        <BudgetForm />
+        <TransactionsTable data={budgetData} variant="budget" />
+      </Section>
+    </>
   );
 };
 
