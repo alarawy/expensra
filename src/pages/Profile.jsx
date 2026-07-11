@@ -1,18 +1,29 @@
 import { Section, Text } from "../components/common";
-import { PreferredCurrency, ProfileInfo, UpdateProfile } from "../components/profile";
+import {
+  PreferredCurrency,
+  ProfileInfo,
+  UpdateProfile,
+} from "../components/profile";
+import SEO from "../components/SEO";
 
 const Profile = () => {
   return (
-    <Section>
-      <Text
-        tagElement="h1"
-        i18nKey="profile.title"
-        className="text-accent mb-5 text-2xl md:text-4xl font-bold"
+    <>
+      <SEO
+        title="Expensra | Profile"
+        description="Manage your personal information and account settings."
       />
-      <ProfileInfo />
-      <UpdateProfile />
-      <PreferredCurrency />
-    </Section>
+      <Section>
+        <Text
+          tagElement="h1"
+          i18nKey="profile.title"
+          className="text-accent mb-5 text-2xl font-bold md:text-4xl"
+        />
+        <ProfileInfo />
+        <UpdateProfile />
+        <PreferredCurrency />
+      </Section>
+    </>
   );
 };
 

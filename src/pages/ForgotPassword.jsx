@@ -5,6 +5,7 @@ import { BsExclamationOctagon } from "../assets/icons/icons";
 import { useForgotPassword } from "../hooks";
 import { showToast } from "../utils";
 import { useTranslation } from "react-i18next";
+import SEO from "../components/SEO";
 
 const ForgotPassword = () => {
   const { t } = useTranslation();
@@ -34,37 +35,44 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Section className="bg-secondary text-primary h-dvh content-center p-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <span className="flex-center text-accent m-auto w-fit text-5xl md:text-7xl">
-          <BsExclamationOctagon />
-        </span>
-        <Text
-          tagElement="h1"
-          i18nKey="auth.forgotPassword"
-          className="text-accent pt-2 text-center text-2xl font-semibold md:text-4xl"
-        />
-        <Text
-          tagElement="p"
-          i18nKey="auth.forgotPasswordDescription"
-          className="text-muted border-bottom mt-4 mb-8 pb-4 text-center text-sm font-semibold"
-        />
-        <EmailInput register={register} error={errors.email} />
-        <div className="flex-end relative w-80 items-center gap-5 pb-5 ltr:ml-auto rtl:mr-auto">
+    <>
+      <SEO
+        title="Reset Password | Expensra"
+        description="Reset your Expensra account password securely."
+        noIndex
+      />
+      <Section className="bg-secondary text-primary h-dvh content-center p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <span className="flex-center text-accent m-auto w-fit text-5xl md:text-7xl">
+            <BsExclamationOctagon />
+          </span>
           <Text
-            tagElement={Link}
-            to={-1}
-            i18nKey="auth.goToBack"
-            className="text-accent flex-end mt-10 w-full text-sm hover:underline"
+            tagElement="h1"
+            i18nKey="auth.forgotPassword"
+            className="text-accent pt-2 text-center text-2xl font-semibold md:text-4xl"
           />
-          <FormButton
-            i18nKey="auth.sendResetCode"
-            isPending={isPending}
-            className="mt-10"
+          <Text
+            tagElement="p"
+            i18nKey="auth.forgotPasswordDescription"
+            className="text-muted border-bottom mt-4 mb-8 pb-4 text-center text-sm font-semibold"
           />
-        </div>
-      </form>
-    </Section>
+          <EmailInput register={register} error={errors.email} />
+          <div className="flex-end relative w-80 items-center gap-5 pb-5 ltr:ml-auto rtl:mr-auto">
+            <Text
+              tagElement={Link}
+              to={-1}
+              i18nKey="auth.goToBack"
+              className="text-accent flex-end mt-10 w-full text-sm hover:underline"
+            />
+            <FormButton
+              i18nKey="auth.sendResetCode"
+              isPending={isPending}
+              className="mt-10"
+            />
+          </div>
+        </form>
+      </Section>
+    </>
   );
 };
 

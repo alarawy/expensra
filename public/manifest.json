@@ -1,0 +1,16 @@
+{
+  "name": "Expensra",
+  "short_name": "Expensra",
+  "description": "Smart expense tracking and financial management platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3990ab",
+  "icons": [
+    {
+      "src": "/Expensra.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

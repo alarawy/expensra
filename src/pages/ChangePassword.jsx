@@ -12,6 +12,7 @@ import {
 import { useChangeUserPassword, useGetCurrentUser } from "../hooks";
 import { FaKey } from "../assets/icons/icons";
 import { showToast } from "../utils";
+import SEO from "../components/SEO";
 
 const ChangePassword = () => {
   const { data: currentUser } = useGetCurrentUser();
@@ -27,7 +28,7 @@ const ChangePassword = () => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
+
   const onSubmit = (data) => {
     const newData = {
       ...data,
@@ -37,51 +38,58 @@ const ChangePassword = () => {
     changeUserPassword(newData, {
       onSuccess: () => {
         navigate("/dashboard");
-        showToast("auth.passwordChanged", "success", t)
+        showToast("auth.passwordChanged", "success", t);
       },
     });
   };
 
   return (
-    <Section className="bg-secondary text-primary h-dvh content-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <span className="flex-center text-accent py-3 text-5xl">
-          <FaKey />
-        </span>
-        <Text
-          tagElement="h1"
-          i18nKey="auth.resetDescription"
-          className="border-bottom pb-6 text-center text-2xl"
-        />
+    <>
+      <SEO
+        title="Change Password | Expensra"
+        description="Update your Expensra account password securely."
+        noIndex
+      />
+      <Section className="bg-secondary text-primary h-dvh content-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <span className="flex-center text-accent py-3 text-5xl">
+            <FaKey />
+          </span>
+          <Text
+            tagElement="h1"
+            i18nKey="auth.resetDescription"
+            className="border-bottom pb-6 text-center text-2xl"
+          />
 
-        <PasswordInput
-          i18nKey="profile.currentPassword"
-          register={register}
-          id="current_password"
-          error={errors?.current_password}
-        />
+          <PasswordInput
+            i18nKey="profile.currentPassword"
+            register={register}
+            id="current_password"
+            error={errors?.current_password}
+          />
 
-        <PasswordInput
-          i18nKey="auth.newPassword"
-          register={register}
-          id="new_password"
-          error={errors?.new_password}
-        />
+          <PasswordInput
+            i18nKey="auth.newPassword"
+            register={register}
+            id="new_password"
+            error={errors?.new_password}
+          />
 
-        <ConfirmPasswordInput
-          register={register}
-          matchField="new_password"
-          id="new_password_confirmation"
-          error={errors?.new_password_confirmation}
-          getValues={getValues}
-        />
-        <FormButton
-          i18nKey="profile.changePassword"
-          isPending={isPending}
-          className="mt-10"
-        />
-      </form>
-    </Section>
+          <ConfirmPasswordInput
+            register={register}
+            matchField="new_password"
+            id="new_password_confirmation"
+            error={errors?.new_password_confirmation}
+            getValues={getValues}
+          />
+          <FormButton
+            i18nKey="profile.changePassword"
+            isPending={isPending}
+            className="mt-10"
+          />
+        </form>
+      </Section>
+    </>
   );
 };
 

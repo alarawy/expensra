@@ -5,15 +5,22 @@ import {
   RecentTransactions,
   Charts,
 } from "../components/dashboard";
+import SEO from "../components/SEO";
 
 const Dashboard = () => {
   return (
-    <Section>
-      <Heading />
-      <SummaryCards />
-      <Charts />
-      <RecentTransactions />
-    </Section>
+    <>
+      <SEO
+        title="Expensra | Dashboard"
+        description="View your current balance, income, expenses, statistics, and financial charts in one smart dashboard."
+      />
+      <Section>
+        <Heading />
+        <SummaryCards />
+        <Charts />
+        <RecentTransactions />
+      </Section>
+    </>
   );
 };
 
