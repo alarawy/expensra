@@ -1,16 +1,146 @@
-# React + Vite
+<p align="center">
+  <img src="./public/Expensra.png" alt="Expensra Logo" width="120" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">Expensra</h1>
 
-Currently, two official plugins are available:
+<p align="center">
+  A modern financial management platform that helps users track expenses, manage budgets, achieve saving goals, and gain AI-powered financial insights.
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel" />
+  <img src="https://img.shields.io/badge/Flutter-3-02569B?logo=flutter" />
+  <img src="https://img.shields.io/badge/License-Educational-green" />
+</p>
 
-## React Compiler
+---
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+🔗 https://expensra.vercel.app/dashboard
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📖 Overview
+
+Expensra is a full-stack financial management system developed as a graduation project. It enables users to manage their personal finances through a clean and intuitive interface while providing AI-powered insights, smart budgeting, saving goals, and detailed analytics.
+
+---
+
+## ✨ Features
+
+- 🔐 Secure Authentication
+- 💰 Income & Expense Management
+- 📊 Interactive Dashboard & Analytics
+- 📅 Monthly Budget Planning
+- 🎯 Saving Goals Management
+- 🤖 AI Financial Insights
+- 🧾 Receipt Scanner
+- 🎤 Voice Transaction Input
+- 🔔 Smart Notifications
+- 📈 Spending Trends & Statistics
+- 🌍 Arabic & English Localization
+- 🌙 Dark & Light Theme
+- 📱 Fully Responsive Design
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- React Query
+- React Hook Form
+- Axios
+- Recharts
+- i18next
+
+### Backend
+- Laravel
+- REST API
+- MySQL
+
+### Mobile
+- Flutter
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+
+> Add a dashboard screenshot here.
+
+### Transactions
+
+> Add a transactions screenshot here.
+
+### Budget
+
+> Add a budget screenshot here.
+
+### Goals
+
+> Add a goals screenshot here.
+
+### Mobile App
+
+> Add mobile app screenshots here.
+
+---
+
+## 🚀 Installation
+
+git clone https://github.com/alarawy/expensra.git
+
+cd expensra
+
+npm install
+
+npm run dev
+
+---
+
+## 📂 Project Structure
+
+src/
+
+├── assets/
+
+├── components/
+
+├── context/
+
+├── hooks/
+
+├── pages/
+
+├── routes/
+
+├── services/
+
+├── utils/
+
+└── App.jsx
+---
+
+## 👨‍💻 Author
+
+Ahmed Reda (Al-arawy)
+
+Frontend Developer
+
+- GitHub: https://github.com/alarawy
+
+---
+
+## 📄 License
+
+This project was developed as a graduation project for educational purposes.
