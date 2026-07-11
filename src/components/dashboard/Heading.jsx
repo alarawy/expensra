@@ -19,19 +19,19 @@ const Heading = () => {
     <div className="border-bottom m-0">
       <Text
         tagElement="h1"
-        className="text-primary text-lg font-bold md:text-2xl"
+        className="pb-1 text-xl font-bold md:text-2xl"
         i18nKey="dashboard.welcome"
         values={{ name: data.first_name }}
       />
-      <div className="flex m-0 flex-col space-y-2 md:flex-row">
+      <div className="m-0 flex flex-col flex-wrap space-y-2 md:flex-row">
         <Text
           tagElement="p"
           i18nKey="dashboard.subtitle"
-          className="text-secondary flex-start"
+          className="text-secondary flex-start text-xs md:text-sm"
         >
           <Text
             i18nKey={`dates.${monthLabels[selectedMonth]}`}
-            className="text-accent"
+            className="text-accent px-1 font-semibold"
           />
         </Text>
         <DateRangeToggle />

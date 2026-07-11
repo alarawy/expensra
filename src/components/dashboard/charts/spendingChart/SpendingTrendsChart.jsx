@@ -5,11 +5,11 @@ import TrendsChart from "./TrendsChart";
 const SpendingTrendsChart = () => {
   const { trendsData, isPending } = useTrendsData();
   return (
-    <div className="flex w-full md:items-stretch flex-2 flex-col">
+    <div className="flex w-full flex-2 flex-col md:items-stretch">
       <Text
-        tagElement="h5"
+        tagElement="h2"
         i18nKey="expenses.spendingTrends"
-        className="text-primary mb-5 text-lg font-semibold"
+        className="section-heading text-primary mb-5"
       />
       {isPending ? (
         <Spinner />
@@ -18,7 +18,8 @@ const SpendingTrendsChart = () => {
       ) : (
         <Text
           i18nKey="dashboard.noTrendsYet"
-          className="flex-center text-secondary flex-1 text-2xl"
+          tagElement="p"
+          className="empty-message"
         />
       )}
     </div>

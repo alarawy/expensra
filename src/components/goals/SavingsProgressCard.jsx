@@ -8,9 +8,9 @@ const SavingsProgressCard = () => {
   return (
     <div className="card m-0 border-0">
       <Text
-        tagElement="h3"
+        tagElement="h2"
         i18nKey="goals.savingProgressTitle"
-        className="text-accent text-xl font-semibold"
+        className="section-heading text-accent mb-0"
       />
 
       <GoalsProgressBar

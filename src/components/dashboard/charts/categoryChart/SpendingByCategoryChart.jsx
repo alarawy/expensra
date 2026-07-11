@@ -5,11 +5,11 @@ import CategoryPieChart from "./CategoryPieChart";
 const SpendingByCategoryChart = () => {
   const { data, isPending } = useExpenseCategories();
   return (
-    <div className="card flex-1 ">
+    <div className="card flex-1">
       <Text
-        tagElement="h5"
+        tagElement="h2"
         i18nKey="expenses.spendingByCategory"
-        className="text-lg font-semibold m-0"
+        className="section-heading"
       />
       {isPending ? (
         <Spinner />
@@ -18,7 +18,8 @@ const SpendingByCategoryChart = () => {
       ) : (
         <Text
           i18nKey="dashboard.noCategoriesData"
-          className="flex-center text-secondary flex-1 text-xl"
+          tagElement="p"
+          className="empty-message"
         />
       )}
     </div>

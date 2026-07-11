@@ -16,11 +16,11 @@ const SavingsLineChart = ({ data }) => {
 
   return (
     <div className="card flex-around flex-2 flex-col overflow-hidden">
-      <div className="md:text-md mb-3 flex gap-1 truncate px-4 text-sm whitespace-nowrap lg:text-xl ltr:mr-auto rtl:ml-auto">
+      <div className="flex gap-1 truncate whitespace-nowrap lg:text-xl ltr:mr-auto rtl:ml-auto">
         <Text
-          tagElement="h4"
+          tagElement="h2"
           i18nKey="analysis.netSavingsTrend"
-          className="text-accent text-start font-semibold"
+          className="section-heading text-accent"
         />
         <Text
           tagElement="h6"

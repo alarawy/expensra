@@ -8,16 +8,20 @@ export const EXPENSE_CATEGORIES = [
         labelKey: "categories.transport",
     },
     {
-        id: "education",
-        labelKey: "categories.education",
-    },
-    {
         id: "bills",
         labelKey: "categories.bills",
     },
     {
         id: "shopping",
         labelKey: "categories.shopping",
+    },
+    {
+        id: "children",
+        labelKey: "categories.children",
+    },
+    {
+        id: "education",
+        labelKey: "categories.education",
     },
     {
         id: "health",

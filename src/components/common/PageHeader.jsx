@@ -8,7 +8,7 @@ const PageHeader = ({ variant }) => {
       <Text
         tagElement="h1"
         i18nKey={`${variant}.title`}
-        className="text-accent pb-1 text-xl md:text-3xl font-bold"
+        className="text-accent pb-1 text-xl md:text-2xl font-bold"
       />
       <Text
         tagElement="p"

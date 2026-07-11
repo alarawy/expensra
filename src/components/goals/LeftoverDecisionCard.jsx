@@ -11,7 +11,7 @@ const LeftoverDecisionCard = () => {
   const isRTL = i18n.language === "ar";
 
   return (
-    <div className="card m-0 mb-5 border-0">
+    <div className="card m-0 mb-3 border-0">
       <div className="flex-start gap-1">
         <FaArrowCircleRight
           className={`text-accent ${isRTL ? "rotate-180" : ""} `}

@@ -1,10 +1,13 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { EmailInput, FormButton, Section, Text } from "../components/common";
-import { BsExclamationOctagon, FaExclamation } from "../assets/icons/icons";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { BsExclamationOctagon } from "../assets/icons/icons";
 import { useForgotPassword } from "../hooks";
+import { showToast } from "../utils";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -23,6 +26,9 @@ const ForgotPassword = () => {
       onSuccess: () => {
         navigate("/reset-password");
         localStorage.setItem("resetEmail", data.email);
+      },
+      onError: () => {
+        showToast("auth.forgotPasswordEmailNotFound", "error", t);
       },
     });
   };

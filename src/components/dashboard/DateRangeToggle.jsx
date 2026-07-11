@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { Text } from "../../common";
+import { Text } from "../common";
 
 const currentMonth = new Date().getMonth() + 1;
 const previousMonth = currentMonth - 1;
@@ -47,7 +47,7 @@ const DateRangeToggle = () => {
           i18nKey={`dates.${option.label}`}
           aria-selected={selectedMonth === option.value}
           tabIndex={0}
-          className={`cursor-pointer rounded-lg m-0 px-3 py-2 text-xs md:text-base transition-colors  duration-200 ease-in-out ${
+          className={`cursor-pointer rounded-md m-0 px-2.5 py-1.5 text-xs md:text-base transition-colors  duration-200 ease-in-out ${
             selectedMonth === option.value
               ? "bg-accent text-primary"
               : "text-secondary"

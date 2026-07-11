@@ -1,5 +1,4 @@
 export { default as AnalyticsBarChart } from './AnalyticsBarChart'
-export { default as AnalyticsPieChart } from './AnalyticsPieChart'
 export { default as RenderCustomizedLabel } from './RenderCustomizedLabel'
 export { default as AverageStatistics } from './AverageStatistics'
 export { default as AnalyticsCard } from './AnalyticsCard'

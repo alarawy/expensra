@@ -15,7 +15,7 @@ const AverageStatistics = ({ average, highest }) => {
       <Text
         tagElement="h2"
         i18nKey="analysis.averageStatistics"
-        className="text-accent md:text-md pb-3 text-sm font-semibold lg:text-2xl"
+        className="section-heading text-accent"
       />
 
       <div className="flex-around">

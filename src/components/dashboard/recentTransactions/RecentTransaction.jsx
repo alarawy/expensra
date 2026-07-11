@@ -11,7 +11,7 @@ const RecentTransaction = ({ title, amount, date, isIncome = false }) => {
     <div className="bg-muted border-bottom-accent flex-between rounded-md p-3">
       <div className="flex-start gap-4">
         <span
-          className={`text-4xl ${isIncome ? "text-accent" : "text-red-500"}`}
+          className={`text-4xl ${isIncome ? "text-green-500" : "text-red-500"}`}
         >
           {isIncome ? <FaArrowTrendDown /> : <FaArrowTrendUp />}
         </span>
@@ -27,7 +27,7 @@ const RecentTransaction = ({ title, amount, date, isIncome = false }) => {
         </div>
       </div>
       <div className="text-center">
-        <p className={`${isIncome ? "text-accent" : "text-red-500"} m-0 p-0`}>
+        <p className={`${isIncome ? "text-green-500" : "text-red-500"} m-0 p-0`}>
           {formatPrice(amount, i18n.language)}
         </p>
         <Text

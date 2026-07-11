@@ -29,13 +29,13 @@ const TransactionsTable = ({ data, variant }) => {
       <div
         className={`${
           hasData ? "min-w-2xl" : ""
-        } bg-primary mt-5 rounded-lg p-5 lg:p-10`}
+        } bg-primary mt-3 rounded-lg p-5`}
       >
         <div className="flex-between">
           <Text
             tagElement="h4"
             i18nKey={i18Key}
-            className="text-accent text-xl font-semibold"
+            className="section-heading text-accent"
           />
 
           {variant === "goals" && <AddGoalsBtn />}
@@ -52,9 +52,9 @@ const TransactionsTable = ({ data, variant }) => {
           </>
         ) : (
           <Text
-            tagElement="h4"
+            tagElement="p"
             i18nKey={emptyKey}
-            className="text-secondary text-md py-8 text-center md:text-3xl"
+            className="empty-message"
           />
         )}
       </div>

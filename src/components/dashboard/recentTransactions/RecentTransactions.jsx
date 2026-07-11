@@ -7,16 +7,16 @@ const RecentTransactions = () => {
   return (
     <div className="mt-3">
       <Text
-        tagElement="h4"
+        tagElement="h2"
         i18nKey={"dashboard.recentTransactions"}
-        className="text-accent my-5 text-2xl font-semibold"
+        className="section-heading text-accent"
       />
 
       {!recentTransactions.length ? (
         <Text
-          tagElement="h4"
+          tagElement="p"
           i18nKey="transactions.startByAddingTransaction"
-          className="text-secondary text-md py-8 text-center md:text-3xl"
+          className="empty-message"
         />
       ) : (
         recentTransactions

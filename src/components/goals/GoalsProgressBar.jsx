@@ -9,13 +9,13 @@ const GoalsProgressBar = ({ current, total }) => {
   const progressPercentage = Math.min(100, Number(percentage.toFixed(0))) || 0;
 
   return (
-    <div className="m-auto my-5 w-[90%]">
-      <div className="flex-between text-sm">
+    <div className="m-auto pt-3 w-[90%]">
+      <div className="flex-between text-xs">
         <div className="flex-center text-secondary">
           <Text
             tagElement="h5"
             i18nKey="goals.saved"
-            className="text-lg font-semibold"
+            className="text-md font-semibold"
           >
             :
           </Text>
@@ -31,7 +31,7 @@ const GoalsProgressBar = ({ current, total }) => {
         <span>{progressPercentage}%</span>
       </div>
 
-      <div className="mt-3 mb-5">
+      <div className="mb-5 mt-1">
         <ProgressBar percentage={progressPercentage} variant = "goals" />
       </div>
     </div>

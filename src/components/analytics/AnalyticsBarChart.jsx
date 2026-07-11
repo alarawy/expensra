@@ -15,17 +15,16 @@ const AnalyticsBarChart = ({ data }) => {
   const isRTL = i18n.language === "ar";
   return (
     <div className="flex-3 card">
-      <div className="flex-center gap-2 mb-10">
-        <Text tagElement="h4" i18nKey="sidebar.income" className="text-xl font-bold" />
-        <span className="font-bold text-accent">&</span>
-        <Text tagElement="h4" i18nKey="sidebar.expense" className="text-xl font-bold" />
+      <div className="section-heading flex-center">
+        <Text tagElement="h2" i18nKey="sidebar.income" />
+        <span className="font-bold text-accent px-1">&</span>
+        <Text tagElement="h2" i18nKey="sidebar.expense" />
       </div>
       <BarChart
         style={{
           width: "100%",
           maxHeight: "300px",
           aspectRatio: 1.618,
-          // paddingBottom: "20px"
         }}
         responsive
         data={data}
